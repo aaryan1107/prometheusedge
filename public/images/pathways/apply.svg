@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="900" viewBox="0 0 900 900" role="img" aria-labelledby="title">
+  <title id="title">Apply admissions pathway abstract file</title>
+  <rect width="900" height="900" fill="#ffffff"/>
+  <circle cx="450" cy="380" r="250" fill="#f1ead9"/>
+  <rect x="214" y="174" width="472" height="472" rx="46" fill="#f8f3e9" stroke="#101e33" stroke-width="4" opacity=".82"/>
+  <path d="M300 380 l92 92 220-250" fill="none" stroke="#1b4c8c" stroke-width="38" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="180" y="690" width="540" height="54" rx="27" fill="#c9974c"/>
+  <text x="168" y="150" fill="#101e33" font-family="Georgia, serif" font-size="70" font-style="italic">Apply</text>
+  <text x="184" y="844" fill="#1b4c8c" font-family="Poppins, Arial, sans-serif" font-size="31" font-weight="700" letter-spacing="6">GRADE 12</text>
+</svg>
