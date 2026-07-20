@@ -61,9 +61,9 @@ const reasons: Reason[] = [
 ];
 
 const desktopPositions = [
-  { x: "-32vw", y: "-19vh", rotation: -4.5 },
-  { x: "0vw", y: "-21vh", rotation: 1.5 },
-  { x: "32vw", y: "-18vh", rotation: 4 },
+  { x: "-32vw", y: "-15vh", rotation: -4.5 },
+  { x: "0vw", y: "-16vh", rotation: 1.5 },
+  { x: "32vw", y: "-15vh", rotation: 4 },
   { x: "-17vw", y: "20vh", rotation: -2.5 },
   { x: "17vw", y: "20vh", rotation: 3 },
 ];
@@ -216,6 +216,15 @@ export function EdgeWhy() {
         <div className="tw:pointer-events-none tw:absolute tw:inset-0 tw:opacity-55" aria-hidden="true">
           <div className="tw:absolute tw:-left-[10vw] tw:top-[5vh] tw:h-[40vw] tw:w-[40vw] tw:max-h-[580px] tw:max-w-[580px] tw:rounded-full tw:bg-clay/12 tw:blur-[110px]" />
           <div className="tw:absolute tw:-right-[5vw] tw:bottom-[-10vh] tw:h-[38vw] tw:w-[38vw] tw:max-h-[520px] tw:max-w-[520px] tw:rounded-full tw:bg-gold/16 tw:blur-[120px]" />
+        </div>
+
+        <div
+          className="tw:pointer-events-none tw:absolute tw:inset-x-[3vw] tw:bottom-10 tw:top-28 tw:z-[5] tw:hidden tw:rounded-lg tw:border tw:border-espresso/[0.08] tw:md:block"
+          aria-hidden="true"
+        >
+          <span className="tw:absolute tw:-top-2.5 tw:left-6 tw:bg-parchment tw:px-2 tw:font-sans tw:text-[9px] tw:font-bold tw:uppercase tw:tracking-[0.18em] tw:text-espresso-soft/35">
+            Five principles · one complete frame
+          </span>
         </div>
 
         <div

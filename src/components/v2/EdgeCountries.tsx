@@ -1,4 +1,4 @@
-import { useMemo, useState, type CSSProperties } from "react";
+import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { ArrowRight, MapPin } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import {
@@ -10,35 +10,65 @@ import {
 import { DESTINATIONS, INDIA_ORIGIN, type Destination } from "@/data/destinations";
 import { SectionHead, Reveal } from "./Reveal";
 
-const constellationPositions = [
-  "tw:left-[22%] tw:top-[34%] tw:sm:left-[27%]",
-  "tw:left-[78%] tw:top-[31%] tw:sm:left-[73%] tw:sm:top-[32%]",
-  "tw:left-[22%] tw:top-[68%] tw:sm:left-[27%] tw:sm:top-[66%]",
-  "tw:left-[73%] tw:top-[66%]",
+const desktopConstellationOffsets = [
+  { x: -148, y: -92 },
+  { x: 146, y: -102 },
+  { x: -145, y: 90 },
+  { x: 144, y: 86 },
 ];
 
-function UniversityConstellation({ destination }: { destination: Destination }) {
+const compactConstellationOffsets = [
+  { x: -104, y: -72 },
+  { x: 104, y: -76 },
+  { x: -100, y: 76 },
+  { x: 100, y: 74 },
+];
+
+function UniversityConstellation({ destination, compact }: { destination: Destination; compact: boolean }) {
+  const offsets = compact ? compactConstellationOffsets : desktopConstellationOffsets;
+  const anchorName = `--cobe-country-${destination.code.toLowerCase()}`;
+
   return (
     <AnimatePresence mode="wait">
-      <motion.div key={destination.code} className="tw:pointer-events-none tw:absolute tw:inset-0 tw:z-20">
+      <motion.div key={destination.code} className="tw:contents">
+        <motion.span
+          data-country-origin={destination.code}
+          aria-hidden="true"
+          initial={{ opacity: 0.9, scale: 0.35 }}
+          animate={{ opacity: 0, scale: 2.8 }}
+          transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+          className="tw:pointer-events-none tw:absolute tw:z-20 tw:h-4 tw:w-4 tw:rounded-full tw:border tw:border-gold tw:bg-clay/70"
+          style={{
+            positionAnchor: anchorName,
+            left: "anchor(center)",
+            top: "anchor(center)",
+            translate: "-50% -50%",
+          } as CSSProperties}
+        />
         {destination.universities.map((university, index) => {
-          const position = constellationPositions[index] ?? constellationPositions[0];
+          const offset = offsets[index] ?? offsets[0];
           return (
             <div
               key={university.name}
-              className={`tw:absolute ${position} ${index > 2 ? "tw:hidden tw:sm:block" : ""}`}
-              style={{ translate: "-50% -50%" } as CSSProperties}
+              className={`tw:pointer-events-none tw:absolute tw:z-20 ${index > 2 ? "tw:hidden tw:sm:block" : ""}`}
+              style={{
+                positionAnchor: anchorName,
+                left: "anchor(center)",
+                top: "anchor(center)",
+                translate: "-50% -50%",
+              } as CSSProperties}
             >
               <motion.div
                 data-university-overlay={university.mark}
-                initial={{ opacity: 0, y: 12, scale: 0.45, filter: "blur(8px)" }}
-                animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-                exit={{ opacity: 0, y: 8, scale: 0.5, filter: "blur(6px)" }}
+                initial={{ opacity: 0, x: 0, y: 0, scale: 0.18, filter: "blur(9px)" }}
+                animate={{ opacity: 1, x: offset.x, y: offset.y, scale: 1, filter: "blur(0px)" }}
+                exit={{ opacity: 0, x: 0, y: 0, scale: 0.2, filter: "blur(8px)" }}
                 transition={{
                   type: "spring",
-                  stiffness: 105,
-                  damping: 16,
-                  delay: index * 0.11,
+                  stiffness: 118,
+                  damping: 17,
+                  mass: 0.9,
+                  delay: index * 0.09,
                 }}
                 className="tw:flex tw:max-w-[128px] tw:items-center tw:gap-2 tw:rounded-xl tw:bg-parchment/95 tw:p-1.5 tw:pr-2 tw:text-espresso tw:shadow-[0_18px_45px_-24px_rgba(36,51,58,0.48)] tw:ring-1 tw:ring-white/70 tw:sm:max-w-[150px] tw:sm:pr-3"
               >
@@ -61,7 +91,16 @@ export function EdgeCountries() {
   const [activeCode, setActiveCode] = useState("US");
   const [journeyVersion, setJourneyVersion] = useState(0);
   const [travelState, setTravelState] = useState<GlobeTravelState>("travelling");
+  const [compactConstellation, setCompactConstellation] = useState(false);
   const destination = DESTINATIONS.find((item) => item.code === activeCode) ?? DESTINATIONS[0];
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 639px)");
+    const update = () => setCompactConstellation(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
 
   const selectDestination = (code: string) => {
     setActiveCode(code);
@@ -221,9 +260,9 @@ export function EdgeCountries() {
                 markerElevation={0.025}
                 arcWidth={1.05}
                 arcHeight={0.38}
-              />
-
-              {hasArrived ? <UniversityConstellation destination={destination} /> : null}
+              >
+                {hasArrived ? <UniversityConstellation destination={destination} compact={compactConstellation} /> : null}
+              </Globe>
 
               <motion.div
                 key={`journey-${destination.code}-${travelState}`}

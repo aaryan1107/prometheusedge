@@ -6,6 +6,7 @@ import {
   useRef,
   type CSSProperties,
   type PointerEvent as ReactPointerEvent,
+  type ReactNode,
 } from "react";
 import createGlobe from "cobe";
 import { MapPin } from "lucide-react";
@@ -35,6 +36,7 @@ export interface GlobeArc {
 }
 
 interface GlobeProps {
+  children?: ReactNode;
   markers?: GlobeMarker[];
   arcs?: GlobeArc[];
   className?: string;
@@ -119,6 +121,7 @@ function routePoint(from: [number, number], to: [number, number], progress: numb
 }
 
 export function Globe({
+  children,
   markers = [],
   arcs = [],
   className,
@@ -470,6 +473,7 @@ export function Globe({
           {marker.label}
         </button>
       ))}
+      {children}
     </div>
   );
 }
