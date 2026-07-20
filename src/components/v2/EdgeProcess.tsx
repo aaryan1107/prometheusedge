@@ -1,52 +1,66 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, type Variants } from "motion/react";
-import { Reveal, SectionHead } from "./Reveal";
+import { AnimatePresence, motion, type Variants } from "motion/react";
+import { SectionHead } from "./Reveal";
 
 const steps = [
   {
     n: "01",
     title: "Free Consultation",
-    body: "Understand goals, interests and aspirations.",
-    tags: [],
+    body: "We begin with a real conversation about goals, interests, concerns and the decisions already on the table.",
+    image: "/images/editorial-terrain.svg",
+    imageAlt: "An open route through layered terrain",
+    imageLabel: "Begin with context",
+    tags: ["Goals", "Interests", "Family priorities"],
   },
   {
     n: "02",
     title: "Career Discovery",
-    body: "Psychometric testing and career exploration.",
-    tags: [],
+    body: "Psychometric evidence and guided exploration reveal the directions worth experiencing more deeply.",
+    image: "/images/pathways/discover.svg",
+    imageAlt: "Discover pathway graphic with a route and checkpoints",
+    imageLabel: "Find the signal",
+    tags: ["Psychometrics", "Exploration", "Exposure"],
   },
   {
     n: "03",
     title: "Personal Roadmap",
-    body: "A customised action plan across academics, extracurriculars and university preparation.",
-    tags: [],
+    body: "The findings become a customised plan across academics, profile development and university preparation.",
+    image: "/images/pathways/build.svg",
+    imageAlt: "Build pathway graphic showing a structured plan",
+    imageLabel: "Shape the plan",
+    tags: ["Subjects", "Milestones", "Country logic"],
   },
   {
     n: "04",
     title: "Profile Building",
-    body: "Turning the plan into visible evidence.",
-    tags: ["Internships", "Research", "Leadership", "Community Service", "Projects", "Competitions"],
+    body: "Students turn intention into visible evidence through projects, research, leadership and practical experience.",
+    image: "/images/pathways/shortlist.svg",
+    imageAlt: "Shortlist pathway graphic showing evidence moving forward",
+    imageLabel: "Make it visible",
+    tags: ["Internships", "Research", "Leadership", "Projects"],
   },
   {
     n: "05",
     title: "Applications",
-    body: "Executing the file through to offers.",
-    tags: ["Shortlisting", "Essays", "Scholarships", "Interviews", "Offers", "Visa Guidance"],
+    body: "We execute the final file with care, from shortlisting and essays through interviews, offers and visa guidance.",
+    image: "/images/pathways/apply.svg",
+    imageAlt: "Apply pathway graphic with a completed check mark",
+    imageLabel: "Move to decision",
+    tags: ["Shortlisting", "Essays", "Offers", "Visa"],
   },
 ];
 
 const stepVariants: Variants = {
-  hidden: { opacity: 0, y: 28, scale: 0.98 },
+  hidden: { opacity: 0, y: 28 },
   visible: (index: number) => ({
     opacity: 1,
     y: 0,
-    scale: 1,
     transition: {
       type: "spring",
       mass: 1,
       stiffness: 52,
       damping: 17,
-      delay: index * 0.08,
+      delay: index * 0.06,
     },
   }),
 };
@@ -54,7 +68,6 @@ const stepVariants: Variants = {
 export function EdgeProcess() {
   const [active, setActive] = useState(0);
   const stepRefs = useRef<Array<HTMLDivElement | null>>([]);
-  const activeStep = steps[active];
 
   useEffect(() => {
     const nodes = stepRefs.current.filter((node): node is HTMLDivElement => Boolean(node));
@@ -68,65 +81,108 @@ export function EdgeProcess() {
         const index = Number((visible?.target as HTMLElement | undefined)?.dataset.stepIndex);
         if (Number.isFinite(index)) setActive(index);
       },
-      { rootMargin: "-28% 0px -42% 0px", threshold: [0.18, 0.36, 0.54, 0.72] },
+      { rootMargin: "-30% 0px -44% 0px", threshold: [0.12, 0.28, 0.44, 0.6] },
     );
 
     nodes.forEach((node) => observer.observe(node));
     return () => observer.disconnect();
   }, []);
 
+  const jumpToStep = (index: number) => {
+    setActive(index);
+    stepRefs.current[index]?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+
   return (
-    <section id="process" className="tw:relative tw:scroll-mt-36 tw:overflow-hidden tw:bg-parchment tw:py-24 tw:md:py-36">
+    <section id="process" className="tw:relative tw:scroll-mt-36 tw:overflow-clip tw:bg-parchment tw:py-24 tw:md:py-36">
       <div className="tw:pointer-events-none tw:absolute tw:inset-0" aria-hidden="true">
         <div className="tw:absolute tw:left-[-10%] tw:top-[12%] tw:h-[360px] tw:w-[360px] tw:rounded-full tw:bg-gold/10 tw:blur-[110px]" />
         <div className="tw:absolute tw:right-[-12%] tw:bottom-[6%] tw:h-[420px] tw:w-[420px] tw:rounded-full tw:bg-clay/10 tw:blur-[120px]" />
       </div>
-      <div className="tw:mx-auto tw:max-w-5xl tw:px-6">
+
+      <div className="tw:relative tw:mx-auto tw:max-w-6xl tw:px-6">
         <SectionHead
           eyebrow="Our Process"
           title="Five steps from first conversation to offer."
+          intro="Follow the process in order. As each step becomes relevant, its picture opens and the rest make room."
         />
 
-        <div className="tw:relative tw:mt-14 tw:grid tw:gap-10 tw:lg:grid-cols-[0.82fr_1.18fr] tw:lg:items-start">
-          <Reveal className="tw:lg:sticky tw:lg:top-32">
-            <aside className="tw:rounded-[2rem] tw:bg-espresso tw:p-2 tw:shadow-[0_34px_80px_-40px_rgba(35,24,15,0.65)]">
-              <div className="tw:rounded-[calc(2rem-0.5rem)] tw:bg-espresso-soft/35 tw:p-7 tw:text-parchment tw:shadow-[inset_0_1px_1px_rgba(255,255,255,0.08)]">
-                <div className="tw:flex tw:items-center tw:justify-between tw:font-sans tw:text-[11px] tw:uppercase tw:tracking-[0.16em] tw:text-parchment/45">
-                  <span>Reading now</span>
-                  <span>{activeStep.n} / 05</span>
-                </div>
-                <motion.div
-                  key={activeStep.n}
-                  initial={{ opacity: 0, y: 12, filter: "blur(8px)" }}
-                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                  transition={{ type: "spring", stiffness: 70, damping: 16 }}
-                >
-                  <h3 className="tw:mt-6 tw:font-display tw:text-4xl tw:leading-none">{activeStep.title}</h3>
-                  <p className="tw:mt-4 tw:font-sans tw:text-[14px] tw:leading-relaxed tw:text-parchment/68">
-                    {activeStep.body}
-                  </p>
-                </motion.div>
-                <div className="tw:mt-7 tw:grid tw:grid-cols-5 tw:gap-2">
-                  {steps.map((step, index) => (
-                    <button
-                      key={step.n}
-                      type="button"
-                      onClick={() => stepRefs.current[index]?.scrollIntoView({ behavior: "smooth", block: "center" })}
-                      aria-label={`Jump to ${step.title}`}
-                      className="tw:h-1.5 tw:rounded-full tw:bg-parchment/15 tw:outline-none tw:transition-colors tw:duration-500"
-                    >
-                      <span
-                        className="tw:block tw:h-full tw:rounded-full tw:bg-clay tw:transition-transform tw:duration-500 tw:ease-[cubic-bezier(0.32,0.72,0,1)]"
-                        style={{ transform: index <= active ? "scaleX(1)" : "scaleX(0)", transformOrigin: "left" }}
-                      />
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </aside>
-          </Reveal>
+        <div className="tw:mt-14 tw:grid tw:gap-12 tw:lg:grid-cols-[1.16fr_0.84fr] tw:lg:items-start tw:lg:gap-16">
+          <div className="tw:sticky tw:top-24 tw:z-10 tw:-mx-2 tw:bg-parchment/95 tw:px-2 tw:py-3 tw:backdrop-blur-sm tw:lg:top-32 tw:lg:mx-0 tw:lg:bg-transparent tw:lg:px-0 tw:lg:py-0 tw:lg:backdrop-blur-none">
+            <div className="tw:flex tw:h-[40svh] tw:min-h-[300px] tw:w-full tw:gap-1.5 tw:overflow-visible tw:sm:gap-2 tw:lg:h-[560px]">
+              {steps.map((step, index) => {
+                const isActive = index === active;
+                return (
+                  <motion.button
+                    key={step.n}
+                    type="button"
+                    onClick={() => jumpToStep(index)}
+                    aria-label={`Show ${step.title}`}
+                    aria-current={isActive ? "step" : undefined}
+                    className="tw:group tw:relative tw:min-w-0 tw:overflow-hidden tw:rounded-lg tw:text-left tw:outline-none tw:ring-clay tw:focus-visible:ring-2 tw:focus-visible:ring-offset-2 tw:focus-visible:ring-offset-parchment"
+                    initial={false}
+                    animate={{
+                      flexGrow: isActive ? 7 : 0.62,
+                      opacity: isActive ? 1 : 0.66,
+                    }}
+                    transition={{ type: "spring", stiffness: 145, damping: 23, mass: 0.8 }}
+                    style={{ flexBasis: 0 }}
+                  >
+                    <motion.img
+                      src={step.image}
+                      alt={step.imageAlt}
+                      className="tw:absolute tw:inset-0 tw:h-full tw:w-full tw:object-cover"
+                      animate={{ scale: isActive ? 1.28 : 1.38 }}
+                      transition={{ duration: 0.75, ease: [0.32, 0.72, 0, 1] }}
+                    />
+                    <div
+                      className="tw:absolute tw:inset-0"
+                      style={{
+                        background:
+                          "linear-gradient(180deg, rgba(35,24,15,0.01) 34%, rgba(35,24,15,0.84) 70%, rgba(35,24,15,0.97) 100%)",
+                      }}
+                    />
 
-          <div className="tw:flex tw:flex-col tw:gap-7">
+                    <AnimatePresence initial={false}>
+                      {isActive ? (
+                        <motion.div
+                          key="open"
+                          initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
+                          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                          exit={{ opacity: 0, y: 10, filter: "blur(4px)" }}
+                          transition={{ duration: 0.36, ease: [0.16, 1, 0.3, 1] }}
+                          className="tw:absolute tw:inset-x-0 tw:bottom-0 tw:min-w-[220px] tw:p-5 tw:text-parchment tw:md:p-7"
+                        >
+                          <div className="tw:font-sans tw:text-[10px] tw:font-semibold tw:uppercase tw:tracking-[0.16em] tw:text-parchment/55">
+                            Step {step.n} / {step.imageLabel}
+                          </div>
+                          <h3 className="tw:mt-2 tw:font-display tw:text-2xl tw:leading-none tw:md:text-4xl">{step.title}</h3>
+                        </motion.div>
+                      ) : (
+                        <motion.span
+                          key="closed"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          className="tw:absolute tw:bottom-5 tw:left-1/2 tw:font-sans tw:text-[9px] tw:font-semibold tw:tracking-[0.14em] tw:text-parchment/80"
+                          style={{ writingMode: "vertical-rl", transform: "translateX(-50%) rotate(180deg)" }}
+                        >
+                          {step.n}
+                        </motion.span>
+                      )}
+                    </AnimatePresence>
+                  </motion.button>
+                );
+              })}
+            </div>
+
+            <div className="tw:mt-4 tw:flex tw:items-center tw:justify-between tw:font-sans tw:text-[9px] tw:font-semibold tw:uppercase tw:tracking-[0.15em] tw:text-espresso-soft/38">
+              <span>Scroll to follow</span>
+              <span>{steps[active].n} / 05</span>
+            </div>
+          </div>
+
+          <div className="tw:flex tw:flex-col">
             {steps.map((step, index) => {
               const isActive = index === active;
               return (
@@ -139,66 +195,36 @@ export function EdgeProcess() {
                   custom={index}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true, amount: 0.32 }}
+                  viewport={{ once: true, amount: 0.24 }}
                   variants={stepVariants}
-                  className="tw:relative tw:grid tw:grid-cols-[auto_1fr] tw:gap-5"
+                  className="tw:flex tw:min-h-[48svh] tw:items-center tw:border-t tw:border-ink-line tw:py-10 tw:first:border-t-espresso tw:lg:min-h-[54vh]"
                 >
-                  <div className="tw:flex tw:flex-col tw:items-center">
-                    <motion.span
-                      className="tw:flex tw:h-12 tw:w-12 tw:items-center tw:justify-center tw:rounded-full tw:font-display tw:text-lg tw:transition-colors tw:duration-500"
-                      style={{
-                        width: 48,
-                        height: 48,
-                        backgroundColor: isActive ? "#b5502a" : "#23180f",
-                        color: "#fbf6ee",
-                      }}
-                      animate={{
-                        scale: isActive ? 1.08 : 1,
-                      }}
-                      transition={{ type: "spring", stiffness: 180, damping: 18 }}
-                    >
-                      {step.n}
-                    </motion.span>
-                    {index < steps.length - 1 && (
-                      <span className="tw:mt-2 tw:w-px tw:flex-1 tw:bg-ink-line">
-                        <span
-                          className="tw:block tw:w-px tw:bg-clay tw:transition-[height] tw:duration-700"
-                          style={{ height: index < active ? "100%" : isActive ? "45%" : "0%" }}
-                        />
+                  <article className="tw:w-full">
+                    <div className="tw:flex tw:items-center tw:justify-between tw:gap-6">
+                      <motion.span
+                        className="tw:font-display tw:text-3xl"
+                        animate={{ color: isActive ? "#b5502a" : "rgba(35,24,15,0.28)", scale: isActive ? 1.08 : 1 }}
+                        transition={{ type: "spring", stiffness: 180, damping: 18 }}
+                      >
+                        {step.n}
+                      </motion.span>
+                      <span className={`tw:h-px tw:flex-1 tw:transition-colors tw:duration-500 ${isActive ? "tw:bg-clay/50" : "tw:bg-ink-line"}`} />
+                      <span className="tw:font-sans tw:text-[9px] tw:font-semibold tw:uppercase tw:tracking-[0.16em] tw:text-espresso-soft/38">
+                        {step.imageLabel}
                       </span>
-                    )}
-                  </div>
-                  <motion.article
-                    className="tw:rounded-[1.6rem] tw:p-1.5 tw:ring-1 tw:transition-colors tw:duration-500"
-                    style={{
-                      backgroundColor: isActive ? "rgba(181,80,42,0.13)" : "rgba(35,24,15,0.04)",
-                      borderColor: isActive ? "rgba(181,80,42,0.26)" : "rgba(35,24,15,0.1)",
-                    }}
-                  >
-                    <div className="tw:rounded-[calc(1.6rem-0.375rem)] tw:bg-parchment tw:p-6 tw:shadow-[inset_0_1px_1px_rgba(255,255,255,0.7)] tw:md:p-7">
-                      <div className="tw:flex tw:flex-wrap tw:items-baseline tw:justify-between tw:gap-3">
-                        <h3 className="tw:font-display tw:text-2xl tw:text-espresso">{step.title}</h3>
-                        <span className="tw:font-sans tw:text-[11px] tw:uppercase tw:tracking-[0.16em] tw:text-clay/70">
-                          Step {step.n}
-                        </span>
-                      </div>
-                      <p className="tw:mt-2 tw:font-sans tw:text-[14px] tw:leading-relaxed tw:text-espresso-soft/70">
-                        {step.body}
-                      </p>
-                      {step.tags.length > 0 && (
-                        <div className="tw:mt-4 tw:flex tw:flex-wrap tw:gap-2">
-                          {step.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="tw:rounded-full tw:bg-clay/10 tw:px-3 tw:py-1 tw:font-sans tw:text-[12px] tw:font-medium tw:text-clay"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      )}
                     </div>
-                  </motion.article>
+                    <h3 className={`tw:mt-6 tw:font-display tw:text-4xl tw:leading-none tw:transition-colors tw:duration-500 ${isActive ? "tw:text-clay" : "tw:text-espresso"}`}>
+                      {step.title}
+                    </h3>
+                    <p className="tw:mt-4 tw:max-w-lg tw:font-sans tw:text-[15px] tw:leading-relaxed tw:text-espresso-soft/68">{step.body}</p>
+                    <div className="tw:mt-6 tw:flex tw:flex-wrap tw:gap-x-5 tw:gap-y-2">
+                      {step.tags.map((tag) => (
+                        <span key={tag} className="tw:font-sans tw:text-[10px] tw:font-semibold tw:uppercase tw:tracking-[0.12em] tw:text-espresso-soft/45">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </article>
                 </motion.div>
               );
             })}

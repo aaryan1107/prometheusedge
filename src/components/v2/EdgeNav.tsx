@@ -1,17 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { ArrowUpRight, X } from "lucide-react";
 
-const links = [
-  { href: "#about", label: "About" },
-  { href: "#services", label: "Services" },
-  { href: "#process", label: "Process" },
-  { href: "#destinations", label: "Destinations" },
-  { href: "#testimonials", label: "Stories" },
-  { href: "#contact", label: "Contact" },
+type NavItem =
+  | { type: "section"; hash: string; label: string }
+  | { type: "page"; to: string; label: string };
+
+const navItems: NavItem[] = [
+  { type: "section", hash: "about", label: "About" },
+  { type: "section", hash: "services", label: "Services" },
+  { type: "page", to: "/blog", label: "Blog" },
+  { type: "page", to: "/careers", label: "Careers" },
+  { type: "page", to: "/universities", label: "Universities" },
+  { type: "section", hash: "contact", label: "Contact" },
 ];
 
 export function EdgeNav() {
   const [open, setOpen] = useState(false);
+  const { pathname } = useLocation();
+  const onHome = pathname === "/";
+
+  const sectionHref = (hash: string) => (onHome ? `#${hash}` : `/#${hash}`);
+  const consultHref = sectionHref("contact");
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   return (
     <>
@@ -29,26 +43,37 @@ export function EdgeNav() {
       <nav className="tw:block tw:fixed tw:inset-x-0 tw:top-10 tw:z-40 tw:mx-auto tw:w-fit tw:max-w-[94vw]">
         <div className="tw:rounded-full tw:bg-espresso/[0.04] tw:p-1.5 tw:ring-1 tw:ring-ink-line tw:backdrop-blur-xl">
           <div className="tw:flex tw:items-center tw:gap-6 tw:rounded-full tw:bg-parchment/90 tw:px-5 tw:py-2 tw:shadow-[inset_0_1px_1px_rgba(255,255,255,0.7)] tw:lg:gap-8">
-            <a href="#top" className="tw:flex tw:items-baseline tw:gap-1.5 tw:font-display tw:text-lg tw:text-espresso">
+            <Link to="/" className="tw:flex tw:items-baseline tw:gap-1.5 tw:font-display tw:text-lg tw:text-espresso">
               EDGE
               <span className="tw:font-sans tw:text-[11px] tw:font-medium tw:tracking-[0.14em] tw:text-espresso/50 tw:uppercase">way</span>
-            </a>
+            </Link>
 
             <div className="tw:hidden tw:items-center tw:gap-7 tw:lg:flex">
-              {links.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className="tw:font-sans tw:text-[13px] tw:font-medium tw:text-espresso-soft/80 tw:transition-colors tw:duration-300 tw:hover:text-clay"
-                >
-                  {link.label}
-                </a>
-              ))}
+              {navItems.map((item) =>
+                item.type === "page" ? (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    aria-current={pathname.startsWith(item.to) ? "page" : undefined}
+                    className={`tw:font-sans tw:text-[13px] tw:font-medium tw:transition-colors tw:duration-300 tw:hover:text-clay ${pathname.startsWith(item.to) ? "tw:text-clay" : "tw:text-espresso-soft/80"}`}
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <a
+                    key={item.hash}
+                    href={sectionHref(item.hash)}
+                    className="tw:font-sans tw:text-[13px] tw:font-medium tw:text-espresso-soft/80 tw:transition-colors tw:duration-300 tw:hover:text-clay"
+                  >
+                    {item.label}
+                  </a>
+                ),
+              )}
             </div>
 
             <div className="tw:flex tw:items-center tw:gap-2">
               <a
-                href="#contact"
+                href={consultHref}
                 className="tw:group tw:hidden tw:items-center tw:gap-2 tw:rounded-full tw:bg-espresso tw:py-1.5 tw:pl-4 tw:pr-1.5 tw:font-sans tw:text-[13px] tw:font-semibold tw:text-parchment tw:transition-all tw:duration-700 tw:ease-[cubic-bezier(0.32,0.72,0,1)] tw:hover:bg-clay tw:active:scale-[0.98] tw:sm:flex"
               >
                 Book a Consultation
@@ -91,27 +116,37 @@ export function EdgeNav() {
           <X className="tw:h-4 tw:w-4" strokeWidth={1.5} />
         </button>
         <div className="tw:flex tw:h-full tw:flex-col tw:items-start tw:justify-center tw:gap-3 tw:px-10">
-          {links.map((link, index) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="tw:font-display tw:text-4xl tw:text-parchment tw:transition-all tw:duration-700 tw:ease-[cubic-bezier(0.32,0.72,0,1)]"
-              style={{
-                transitionDelay: open ? `${100 + index * 60}ms` : "0ms",
-                transform: open ? "translateY(0)" : "translateY(2.5rem)",
-                opacity: open ? 1 : 0,
-              }}
-            >
-              {link.label}
-            </a>
-          ))}
+          {navItems.map((item, index) => {
+            const style = {
+              transitionDelay: open ? `${100 + index * 60}ms` : "0ms",
+              transform: open ? "translateY(0)" : "translateY(2.5rem)",
+              opacity: open ? 1 : 0,
+            };
+            const cls =
+              "tw:font-display tw:text-4xl tw:text-parchment tw:transition-all tw:duration-700 tw:ease-[cubic-bezier(0.32,0.72,0,1)]";
+            return item.type === "page" ? (
+              <Link
+                key={item.to}
+                to={item.to}
+                onClick={() => setOpen(false)}
+                aria-current={pathname.startsWith(item.to) ? "page" : undefined}
+                className={`${cls} ${pathname.startsWith(item.to) ? "tw:text-clay" : ""}`}
+                style={style}
+              >
+                {item.label}
+              </Link>
+            ) : (
+              <a key={item.hash} href={sectionHref(item.hash)} onClick={() => setOpen(false)} className={cls} style={style}>
+                {item.label}
+              </a>
+            );
+          })}
           <a
-            href="#contact"
+            href={consultHref}
             onClick={() => setOpen(false)}
             className="tw:mt-6 tw:flex tw:items-center tw:gap-2 tw:rounded-full tw:bg-clay tw:py-3 tw:pl-6 tw:pr-2 tw:font-sans tw:text-sm tw:font-semibold tw:text-parchment tw:transition-all tw:duration-700 tw:ease-[cubic-bezier(0.32,0.72,0,1)]"
             style={{
-              transitionDelay: open ? `${100 + links.length * 60}ms` : "0ms",
+              transitionDelay: open ? `${100 + navItems.length * 60}ms` : "0ms",
               transform: open ? "translateY(0)" : "translateY(2.5rem)",
               opacity: open ? 1 : 0,
             }}
