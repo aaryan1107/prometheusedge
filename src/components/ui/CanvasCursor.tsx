@@ -25,6 +25,8 @@ const TRAIL_COUNT = 10;
 const NODE_COUNT = 32;
 const IDLE_FADE_MS = 720;
 const IDLE_STOP_MS = 1100;
+const DESTINATION_DOT_RADIUS = 10;
+const DESTINATION_DOT_LAG = 10;
 
 export function CanvasCursor() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -41,7 +43,9 @@ export function CanvasCursor() {
     if (!context) return;
 
     const pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    const follower = { ...pointer };
     let trails: Trail[] = [];
+    let destinationMode = false;
     let initialized = false;
     let running = false;
     let frame = 0;
@@ -62,6 +66,21 @@ export function CanvasCursor() {
         })),
       }));
       initialized = true;
+    };
+
+    const pointerIsInDestinations = () =>
+      Boolean(document.elementFromPoint(pointer.x, pointer.y)?.closest("#destinations"));
+
+    const setCursorMode = (nextDestinationMode: boolean) => {
+      if (destinationMode === nextDestinationMode) return;
+      destinationMode = nextDestinationMode;
+      canvas.dataset.cursorMode = destinationMode ? "destination" : "trail";
+      if (destinationMode) {
+        follower.x = pointer.x;
+        follower.y = pointer.y;
+      } else {
+        buildTrails();
+      }
     };
 
     const resize = () => {
@@ -117,12 +136,34 @@ export function CanvasCursor() {
       context.closePath();
     };
 
+    const drawDestinationDot = () => {
+      follower.x += (pointer.x - follower.x) / DESTINATION_DOT_LAG;
+      follower.y += (pointer.y - follower.y) / DESTINATION_DOT_LAG;
+
+      context.save();
+      context.shadowColor = "rgba(211, 157, 70, 0.42)";
+      context.shadowBlur = 16;
+      context.fillStyle = "rgba(251, 250, 246, 0.78)";
+      context.strokeStyle = "rgba(196, 111, 82, 0.9)";
+      context.lineWidth = 1.5;
+      context.beginPath();
+      context.arc(follower.x, follower.y, DESTINATION_DOT_RADIUS, 0, Math.PI * 2);
+      context.fill();
+      context.stroke();
+      context.closePath();
+      context.restore();
+    };
+
     const render = (time: number) => {
       context.clearRect(0, 0, cssWidth, cssHeight);
-      trails.forEach((trail, index) => {
-        updateTrail(trail);
-        drawTrail(trail, index);
-      });
+      if (destinationMode) {
+        drawDestinationDot();
+      } else {
+        trails.forEach((trail, index) => {
+          updateTrail(trail);
+          drawTrail(trail, index);
+        });
+      }
 
       const idleFor = time - lastMove;
       if (idleFor > IDLE_FADE_MS) canvas.style.opacity = "0";
@@ -147,7 +188,16 @@ export function CanvasCursor() {
       pointer.y = event.clientY;
       lastMove = performance.now();
       if (!initialized) buildTrails();
-      canvas.style.opacity = "0.86";
+      setCursorMode(pointerIsInDestinations());
+      canvas.style.opacity = destinationMode ? "0.96" : "0.86";
+      start();
+    };
+
+    const onViewportChange = () => {
+      if (!initialized) return;
+      setCursorMode(pointerIsInDestinations());
+      lastMove = performance.now();
+      canvas.style.opacity = destinationMode ? "0.96" : "0.86";
       start();
     };
 
@@ -162,6 +212,7 @@ export function CanvasCursor() {
 
     resize();
     window.addEventListener("resize", resize);
+    window.addEventListener("scroll", onViewportChange, { passive: true });
     window.addEventListener("pointermove", onPointerMove, { passive: true });
     document.documentElement.addEventListener("pointerleave", onPointerLeave);
     document.addEventListener("visibilitychange", onVisibilityChange);
@@ -170,6 +221,7 @@ export function CanvasCursor() {
       if (frame) window.cancelAnimationFrame(frame);
       running = false;
       window.removeEventListener("resize", resize);
+      window.removeEventListener("scroll", onViewportChange);
       window.removeEventListener("pointermove", onPointerMove);
       document.documentElement.removeEventListener("pointerleave", onPointerLeave);
       document.removeEventListener("visibilitychange", onVisibilityChange);
@@ -180,6 +232,7 @@ export function CanvasCursor() {
     <canvas
       ref={canvasRef}
       data-canvas-cursor="true"
+      data-cursor-mode="trail"
       aria-hidden="true"
       className="tw:pointer-events-none tw:fixed tw:inset-0 tw:z-[55] tw:opacity-0 tw:transition-opacity tw:duration-300"
       style={{ contain: "strict" }}
