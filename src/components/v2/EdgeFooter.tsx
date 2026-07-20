@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import { BrandMark } from "./BrandMark";
 
 type FooterLink =
   | { label: string; type: "section"; hash: string }
@@ -37,8 +38,9 @@ export function EdgeFooter() {
       <div className="tw:mx-auto tw:max-w-6xl">
         <div className="tw:grid tw:gap-12 tw:lg:grid-cols-[1.2fr_0.8fr_0.8fr_1.2fr]">
           <div>
-            <Link to="/" className="tw:flex tw:items-baseline tw:gap-1.5 tw:font-display tw:text-2xl tw:text-parchment">
-              The Edge Way
+            <Link to="/" className="tw:flex tw:items-center tw:gap-3 tw:font-display tw:text-2xl tw:text-parchment">
+              <BrandMark className="tw:h-11 tw:w-11 tw:ring-1 tw:ring-gold/30" />
+              <span>The Edge <span className="tw:text-gold">Way</span></span>
             </Link>
             <p className="tw:mt-4 tw:max-w-xs tw:font-sans tw:text-[14px] tw:leading-relaxed tw:text-parchment/55">
               Boutique career counselling and university guidance - personalised to every student, from Grade 8 onward.

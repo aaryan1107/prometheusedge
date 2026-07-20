@@ -2,25 +2,25 @@
   <title id="title">Warm editorial terrain strata</title>
   <defs>
     <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
-      <stop stop-color="#ffffff"/>
-      <stop offset=".42" stop-color="#f8f9fb"/>
-      <stop offset="1" stop-color="#f5ece5"/>
+      <stop stop-color="#fbfaf6"/>
+      <stop offset=".42" stop-color="#e9ece8"/>
+      <stop offset="1" stop-color="#d8bfaf"/>
     </linearGradient>
     <linearGradient id="ridge" x1="0" y1="0" x2="1" y2="1">
-      <stop stop-color="#c5d5e8"/>
-      <stop offset=".45" stop-color="#efe5f9"/>
-      <stop offset="1" stop-color="#e7d3bf"/>
+      <stop stop-color="#aebdc0"/>
+      <stop offset=".45" stop-color="#e9ece8"/>
+      <stop offset="1" stop-color="#d8bfaf"/>
     </linearGradient>
     <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
       <feGaussianBlur stdDeviation="22"/>
     </filter>
   </defs>
   <rect width="1600" height="1000" fill="url(#sky)"/>
-  <circle cx="1180" cy="230" r="190" fill="#0099ff" opacity=".18" filter="url(#soft)"/>
-  <circle cx="960" cy="690" r="210" fill="#e55cff" opacity=".13" filter="url(#soft)"/>
+  <circle cx="1180" cy="230" r="190" fill="#526a70" opacity=".18" filter="url(#soft)"/>
+  <circle cx="960" cy="690" r="210" fill="#c46f52" opacity=".13" filter="url(#soft)"/>
   <path d="M0 665 C180 570 322 642 484 566 C678 474 798 504 962 420 C1180 309 1372 342 1600 236 L1600 1000 L0 1000 Z" fill="url(#ridge)" opacity=".86"/>
-  <path d="M0 744 C185 676 338 720 510 654 C700 580 838 590 1034 504 C1212 426 1390 432 1600 382" fill="none" stroke="#4c312b" stroke-width="2" opacity=".16"/>
-  <path d="M0 810 C210 740 355 796 538 724 C760 636 928 678 1116 574 C1298 474 1438 528 1600 454" fill="none" stroke="#0b252a" stroke-width="2" opacity=".11"/>
-  <path d="M0 882 C220 812 390 872 586 792 C792 708 986 726 1178 650 C1368 574 1486 606 1600 552" fill="none" stroke="#406e7a" stroke-width="2" opacity=".18"/>
-  <path d="M520 998 C610 838 706 766 812 720 C928 670 1020 604 1112 462 C916 548 772 554 616 634 C466 710 358 830 298 998 Z" fill="#ffffff" opacity=".26"/>
+  <path d="M0 744 C185 676 338 720 510 654 C700 580 838 590 1034 504 C1212 426 1390 432 1600 382" fill="none" stroke="#526a70" stroke-width="2" opacity=".16"/>
+  <path d="M0 810 C210 740 355 796 538 724 C760 636 928 678 1116 574 C1298 474 1438 528 1600 454" fill="none" stroke="#24333a" stroke-width="2" opacity=".11"/>
+  <path d="M0 882 C220 812 390 872 586 792 C792 708 986 726 1178 650 C1368 574 1486 606 1600 552" fill="none" stroke="#c46f52" stroke-width="2" opacity=".18"/>
+  <path d="M520 998 C610 838 706 766 812 720 C928 670 1020 604 1112 462 C916 548 772 554 616 634 C466 710 358 830 298 998 Z" fill="#fbfaf6" opacity=".26"/>
 </svg>

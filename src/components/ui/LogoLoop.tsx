@@ -58,6 +58,15 @@ export const LogoLoop = memo(function LogoLoop({
   const [seqHeight, setSeqHeight] = useState(0);
   const [copyCount, setCopyCount] = useState(ANIMATION_CONFIG.MIN_COPIES);
   const [isHovered, setIsHovered] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updatePreference = () => setReducedMotion(media.matches);
+    updatePreference();
+    media.addEventListener("change", updatePreference);
+    return () => media.removeEventListener("change", updatePreference);
+  }, []);
 
   const effectiveHoverSpeed = useMemo(() => {
     if (hoverSpeed !== undefined) return hoverSpeed;
@@ -119,6 +128,10 @@ export const LogoLoop = memo(function LogoLoop({
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
+    if (reducedMotion) {
+      track.style.transform = "translate3d(0, 0, 0)";
+      return;
+    }
     const seqSize = isVertical ? seqHeight : seqWidth;
 
     if (seqSize > 0) {
@@ -154,7 +167,7 @@ export const LogoLoop = memo(function LogoLoop({
       rafRef.current = null;
       lastTimestampRef.current = null;
     };
-  }, [targetVelocity, seqWidth, seqHeight, isHovered, effectiveHoverSpeed, isVertical]);
+  }, [targetVelocity, seqWidth, seqHeight, isHovered, effectiveHoverSpeed, isVertical, reducedMotion]);
 
   const cssVariables = useMemo(
     () =>

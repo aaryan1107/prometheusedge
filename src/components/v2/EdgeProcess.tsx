@@ -139,7 +139,7 @@ export function EdgeProcess() {
                       className="tw:absolute tw:inset-0"
                       style={{
                         background:
-                          "linear-gradient(180deg, rgba(35,24,15,0.01) 34%, rgba(35,24,15,0.84) 70%, rgba(35,24,15,0.97) 100%)",
+                          "linear-gradient(180deg, rgba(18,33,43,0.01) 34%, rgba(18,33,43,0.82) 70%, rgba(18,33,43,0.97) 100%)",
                       }}
                     />
 
@@ -203,7 +203,7 @@ export function EdgeProcess() {
                     <div className="tw:flex tw:items-center tw:justify-between tw:gap-6">
                       <motion.span
                         className="tw:font-display tw:text-3xl"
-                        animate={{ color: isActive ? "#b5502a" : "rgba(35,24,15,0.28)", scale: isActive ? 1.08 : 1 }}
+                        animate={{ color: isActive ? "#c46f52" : "rgba(36,51,58,0.28)", scale: isActive ? 1.08 : 1 }}
                         transition={{ type: "spring", stiffness: 180, damping: 18 }}
                       >
                         {step.n}

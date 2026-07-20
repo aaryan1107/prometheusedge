@@ -1,121 +1,183 @@
 import { Reveal, SectionHead } from "./Reveal";
 
-const bands = [
+type ServiceBand = {
+  grade: string;
+  label: string;
+  summary: string;
+  theme: "foundation" | "application";
+  groups: Array<{
+    title: string;
+    services: string[];
+  }>;
+};
+
+const bands: ServiceBand[] = [
   {
-    grade: "Grade 8–10",
-    label: "Early Foundations",
-    theme: "light" as const,
-    services: [
-      "Early Career Discovery",
-      "Subject Selection Guidance",
-      "Career Assessments",
-      "Psychometric Testing",
-      "Career Exploration",
-      "Academic Planning",
-      "Extracurricular Roadmap",
-      "Olympiad Planning",
-      "Competition Guidance",
-      "Summer School Planning",
-      "Leadership Development",
-      "Parent Counselling",
+    grade: "Grade 8-10",
+    label: "Early foundations",
+    summary: "A considered start, built around self-awareness, strong choices and time to explore.",
+    theme: "foundation",
+    groups: [
+      {
+        title: "Discover",
+        services: [
+          "Early Career Discovery",
+          "Career Assessments",
+          "Psychometric Testing",
+          "Career Exploration",
+        ],
+      },
+      {
+        title: "Plan",
+        services: [
+          "Subject Selection Guidance",
+          "Academic Planning",
+          "Olympiad Planning",
+          "Competition Guidance",
+        ],
+      },
+      {
+        title: "Build",
+        services: [
+          "Extracurricular Roadmap",
+          "Summer School Planning",
+          "Leadership Development",
+          "Parent Counselling",
+        ],
+      },
     ],
   },
   {
-    grade: "Grade 11–12",
+    grade: "Grade 11-12",
     label: "Everything above, plus applications",
-    theme: "dark" as const,
-    services: [
-      "University Shortlisting",
-      "Country Selection",
-      "Application Strategy",
-      "College List Building",
-      "Personal Statement Guidance",
-      "Essay Reviews",
-      "Recommendation Guidance",
-      "Interview Preparation",
-      "Scholarship Guidance",
-      "Portfolio Building",
-      "SAT / ACT Planning",
-      "IELTS / TOEFL",
-      "AP Planning",
-      "UCAS Guidance",
-      "US / Canada Applications",
-      "Europe / Singapore Applications",
-      "Australia / Dubai Applications",
-      "Gap Year Planning",
+    summary: "The full application engine, coordinated across countries, testing and deadlines.",
+    theme: "application",
+    groups: [
+      {
+        title: "Direction",
+        services: [
+          "University Shortlisting",
+          "Country Selection",
+          "Application Strategy",
+          "College List Building",
+        ],
+      },
+      {
+        title: "Story & Case",
+        services: [
+          "Personal Statement Guidance",
+          "Essay Reviews",
+          "Recommendation Guidance",
+          "Interview Preparation",
+          "Portfolio Building",
+        ],
+      },
+      {
+        title: "Testing & Funding",
+        services: [
+          "SAT / ACT Planning",
+          "IELTS / TOEFL",
+          "AP Planning",
+          "Scholarship Guidance",
+        ],
+      },
+      {
+        title: "Application Routes",
+        services: [
+          "US / Canada Applications",
+          "UCAS Guidance",
+          "Europe / Singapore Applications",
+          "Australia / Dubai Applications",
+          "Gap Year Planning",
+        ],
+      },
     ],
   },
 ];
 
 export function EdgeServices() {
   return (
-    <section id="services" className="tw:bg-parchment-deep tw:py-24 tw:md:py-36">
+    <section id="services" className="tw:bg-mineral tw:py-24 tw:md:py-36">
       <div className="tw:mx-auto tw:max-w-6xl tw:px-6">
         <SectionHead
           eyebrow="Our Services"
           title="A complete plan for every stage."
-          intro="What we cover grows with the student — foundations first, then the full application engine as decisions get real."
+          intro="What we cover grows with the student - foundations first, then the full application engine as decisions get real."
         />
 
-        <div className="tw:mt-14 tw:grid tw:gap-5 tw:lg:grid-cols-2">
+        <div className="tw:mt-14 tw:grid tw:gap-5 tw:lg:grid-cols-[0.9fr_1.1fr]">
           {bands.map((band, index) => {
-            const dark = band.theme === "dark";
+            const foundation = band.theme === "foundation";
+            const foreground = foundation ? "var(--color-graphite)" : "var(--color-chalk)";
+            const muted = foundation ? "rgba(36,51,58,0.68)" : "rgba(251,250,246,0.68)";
+            const line = foundation ? "rgba(36,51,58,0.16)" : "rgba(251,250,246,0.16)";
+            const accent = foundation ? "var(--color-terracotta)" : "var(--color-gold)";
+
             return (
-              <Reveal key={band.grade} delay={index * 0.1}>
+              <Reveal key={band.grade} delay={index * 0.1} className="tw:h-full">
                 <article
-                  className="tw:h-full tw:rounded-[2rem] tw:p-2 tw:ring-1"
+                  className="tw:relative tw:h-full tw:overflow-hidden tw:rounded-lg tw:p-7 tw:shadow-[0_28px_60px_-42px_rgba(36,51,58,0.48)] tw:md:p-9"
                   style={{
-                    background: dark ? "var(--color-espresso)" : "rgba(35,24,15,0.05)",
-                    borderColor: "var(--color-ink-line)",
+                    background: foundation ? "var(--color-rose-clay)" : "var(--color-muted-teal)",
+                    color: foreground,
                   }}
                 >
-                  <div
-                    className="tw:flex tw:h-full tw:flex-col tw:rounded-[calc(2rem-0.5rem)] tw:p-8 tw:md:p-9"
-                    style={{
-                      background: dark ? "var(--color-espresso)" : "var(--color-parchment)",
-                      boxShadow: dark ? "none" : "inset 0 1px 1px rgba(255,255,255,0.7)",
-                    }}
-                  >
-                    <div className="tw:flex tw:items-center tw:justify-between">
-                      <div>
-                        <h3
-                          className="tw:font-display tw:text-3xl"
-                          style={{ color: dark ? "var(--color-parchment)" : "var(--color-espresso)" }}
-                        >
-                          {band.grade}
-                        </h3>
-                        <p
-                          className="tw:mt-1 tw:font-sans tw:text-[12px] tw:uppercase tw:tracking-[0.14em]"
-                          style={{ color: dark ? "var(--color-gold)" : "var(--color-clay)" }}
-                        >
-                          {band.label}
-                        </p>
-                      </div>
-                      <span
-                        className="tw:flex tw:h-11 tw:w-11 tw:items-center tw:justify-center tw:rounded-full tw:font-display tw:text-lg"
-                        style={{
-                          background: dark ? "var(--color-clay)" : "var(--color-espresso)",
-                          color: "var(--color-parchment)",
-                        }}
-                      >
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-                    </div>
+                  <span
+                    aria-hidden="true"
+                    className="tw:absolute tw:inset-x-0 tw:top-0 tw:h-1"
+                    style={{ background: accent }}
+                  />
 
-                    <ul className="tw:mt-7 tw:flex tw:flex-wrap tw:gap-2">
-                      {band.services.map((service) => (
-                        <li
-                          key={service}
-                          className="tw:rounded-full tw:px-3.5 tw:py-1.5 tw:font-sans tw:text-[12.5px] tw:font-medium"
-                          style={{
-                            background: dark ? "rgba(251,246,238,0.08)" : "rgba(35,24,15,0.05)",
-                            color: dark ? "var(--color-parchment)" : "var(--color-espresso-soft)",
-                          }}
+                  <header className="tw:grid tw:grid-cols-[1fr_auto] tw:gap-6 tw:border-b tw:pb-7" style={{ borderColor: line }}>
+                    <div>
+                      <p
+                        className="tw:font-sans tw:text-[10px] tw:font-bold tw:uppercase tw:tracking-[0.18em]"
+                        style={{ color: accent }}
+                      >
+                        Stage {String(index + 1).padStart(2, "0")} · {band.label}
+                      </p>
+                      <h3 className="tw:mt-3 tw:font-display tw:text-4xl tw:leading-none tw:md:text-[2.7rem]">
+                        {band.grade}
+                      </h3>
+                      <p className="tw:mt-4 tw:max-w-md tw:font-sans tw:text-[13px] tw:leading-relaxed" style={{ color: muted }}>
+                        {band.summary}
+                      </p>
+                    </div>
+                    <span
+                      className="tw:font-display tw:text-5xl tw:leading-none tw:opacity-20"
+                      aria-hidden="true"
+                    >
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                  </header>
+
+                  <div className={`tw:mt-7 tw:grid tw:gap-x-8 tw:gap-y-7 ${foundation ? "" : "tw:sm:grid-cols-2"}`}>
+                    {band.groups.map((group) => (
+                      <section key={group.title}>
+                        <h4
+                          className="tw:font-sans tw:text-[10px] tw:font-bold tw:uppercase tw:tracking-[0.18em]"
+                          style={{ color: accent }}
                         >
-                          {service}
-                        </li>
-                      ))}
-                    </ul>
+                          {group.title}
+                        </h4>
+                        <ul className="tw:mt-2.5">
+                          {group.services.map((service) => (
+                            <li
+                              key={service}
+                              className="tw:flex tw:min-h-9 tw:items-center tw:gap-2.5 tw:border-t tw:py-2 tw:font-sans tw:text-[12.5px] tw:font-medium tw:leading-snug"
+                              style={{ borderColor: line, color: foreground }}
+                            >
+                              <span
+                                aria-hidden="true"
+                                className="tw:h-1.5 tw:w-1.5 tw:shrink-0 tw:rounded-full"
+                                style={{ background: accent }}
+                              />
+                              {service}
+                            </li>
+                          ))}
+                        </ul>
+                      </section>
+                    ))}
                   </div>
                 </article>
               </Reveal>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ArrowUpRight, X } from "lucide-react";
+import { BrandMark } from "./BrandMark";
 
 type NavItem =
   | { type: "section"; hash: string; label: string }
@@ -43,9 +44,12 @@ export function EdgeNav() {
       <nav className="tw:block tw:fixed tw:inset-x-0 tw:top-10 tw:z-40 tw:mx-auto tw:w-fit tw:max-w-[94vw]">
         <div className="tw:rounded-full tw:bg-espresso/[0.04] tw:p-1.5 tw:ring-1 tw:ring-ink-line tw:backdrop-blur-xl">
           <div className="tw:flex tw:items-center tw:gap-6 tw:rounded-full tw:bg-parchment/90 tw:px-5 tw:py-2 tw:shadow-[inset_0_1px_1px_rgba(255,255,255,0.7)] tw:lg:gap-8">
-            <Link to="/" className="tw:flex tw:items-baseline tw:gap-1.5 tw:font-display tw:text-lg tw:text-espresso">
-              EDGE
-              <span className="tw:font-sans tw:text-[11px] tw:font-medium tw:tracking-[0.14em] tw:text-espresso/50 tw:uppercase">way</span>
+            <Link to="/" aria-label="The Edge Way home" className="tw:flex tw:items-center tw:gap-2.5">
+              <BrandMark className="tw:h-8 tw:w-8 tw:ring-1 tw:ring-gold/25" />
+              <span className="tw:flex tw:items-baseline tw:gap-1.5 tw:font-display tw:text-lg tw:text-espresso">
+                EDGE
+                <span className="tw:text-gold">WAY</span>
+              </span>
             </Link>
 
             <div className="tw:hidden tw:items-center tw:gap-7 tw:lg:flex">

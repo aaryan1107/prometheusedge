@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ScrollToTop } from "@/components/v2/ScrollToTop";
+import { CanvasCursor } from "@/components/ui/CanvasCursor";
 import Home from "@/pages/Home";
 
 const Blog = lazy(() => import("@/pages/Blog"));
@@ -22,6 +23,7 @@ function RouteFallback() {
 function App() {
   return (
     <BrowserRouter>
+      <CanvasCursor />
       <ScrollToTop />
       <Suspense fallback={<RouteFallback />}>
         <Routes>

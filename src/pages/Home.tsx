@@ -15,12 +15,14 @@ import { EdgeCTA } from "@/components/v2/EdgeCTA";
 import { EdgeContact } from "@/components/v2/EdgeContact";
 import { EdgeFooter } from "@/components/v2/EdgeFooter";
 import { WhatsAppButton } from "@/components/v2/WhatsAppButton";
+import { BrandMark } from "@/components/v2/BrandMark";
 
 function Preloader() {
   return (
     <div className="tw:fixed tw:inset-0 tw:z-[100] tw:flex tw:items-center tw:justify-center tw:bg-espresso" role="status" aria-live="polite">
       <div className="tw:flex tw:flex-col tw:items-center tw:gap-3">
-        <span className="tw:font-display tw:text-3xl tw:italic tw:text-parchment">The Edge Way</span>
+        <BrandMark className="tw:h-16 tw:w-16 tw:ring-1 tw:ring-gold/35" />
+        <span className="tw:font-display tw:text-3xl tw:italic tw:text-parchment">The Edge <span className="tw:text-gold">Way</span></span>
         <span className="tw:font-sans tw:text-[11px] tw:uppercase tw:tracking-[0.28em] tw:text-parchment/50">
           Find Your Edge
         </span>

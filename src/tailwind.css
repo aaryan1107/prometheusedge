@@ -1,21 +1,65 @@
 @import "tailwindcss" prefix(tw);
 
-@theme {
+@theme static {
   --font-display: "Fraunces", "Playfair Display", ui-serif, Georgia, serif;
   --font-sans: "Satoshi", "Manrope", ui-sans-serif, system-ui, sans-serif;
 
-  --color-parchment: #fbf6ee;
-  --color-parchment-deep: #f3ead9;
-  --color-espresso: #23180f;
-  --color-espresso-soft: #3a2b1c;
-  --color-clay: #b5502a;
-  --color-clay-soft: #e7d3bf;
-  --color-gold: #b8863f;
-  --color-gold-soft: #eadfc7;
-  --color-ink-line: rgba(35, 24, 15, 0.1);
+  --color-chalk: #fbfaf6;
+  --color-mineral: #e9ece8;
+  --color-rose-clay: #d8bfaf;
+  --color-terracotta: #c46f52;
+  --color-muted-teal: #526a70;
+  --color-graphite: #24333a;
+  --color-heritage: #2f5572;
+
+  --color-ivory: #fbfaf6;
+  --color-cream: #e9ece8;
+  --color-royal: #2f5572;
+  --color-navy: #24333a;
+  --color-ink-navy: #24333a;
+  --color-slate-muted: #667277;
+  --color-brand-gold: #d39d46;
+  --color-soft-gold: #e6d3aa;
+
+  /* Existing semantic names stay stable while the brand identity evolves. */
+  --color-parchment: #fbfaf6;
+  --color-parchment-deep: #e9ece8;
+  --color-espresso: #24333a;
+  --color-espresso-soft: #526a70;
+  --color-clay: #c46f52;
+  --color-clay-soft: #d8bfaf;
+  --color-gold: #d39d46;
+  --color-gold-soft: #e6d3aa;
+  --color-ink-line: rgba(36, 51, 58, 0.12);
 }
 
 @layer base {
+  :root {
+    --color-chalk: var(--tw-color-chalk);
+    --color-mineral: var(--tw-color-mineral);
+    --color-rose-clay: var(--tw-color-rose-clay);
+    --color-terracotta: var(--tw-color-terracotta);
+    --color-muted-teal: var(--tw-color-muted-teal);
+    --color-graphite: var(--tw-color-graphite);
+    --color-heritage: var(--tw-color-heritage);
+    --color-ivory: var(--tw-color-ivory);
+    --color-cream: var(--tw-color-cream);
+    --color-royal: var(--tw-color-royal);
+    --color-navy: var(--tw-color-navy);
+    --color-ink-navy: var(--tw-color-ink-navy);
+    --color-slate-muted: var(--tw-color-slate-muted);
+    --color-brand-gold: var(--tw-color-brand-gold);
+    --color-soft-gold: var(--tw-color-soft-gold);
+    --color-parchment: var(--tw-color-parchment);
+    --color-parchment-deep: var(--tw-color-parchment-deep);
+    --color-espresso: var(--tw-color-espresso);
+    --color-espresso-soft: var(--tw-color-espresso-soft);
+    --color-clay: var(--tw-color-clay);
+    --color-clay-soft: var(--tw-color-clay-soft);
+    --color-gold: var(--tw-color-gold);
+    --color-gold-soft: var(--tw-color-gold-soft);
+    --color-ink-line: var(--tw-color-ink-line);
+  }
   html {
     scroll-behavior: smooth;
   }
@@ -106,18 +150,18 @@
   border-radius: 50%;
   overflow: hidden;
   background:
-    radial-gradient(circle at 30% 26%, rgba(251, 246, 238, 0.28), transparent 42%),
+    radial-gradient(circle at 30% 26%, rgba(251, 250, 246, 0.28), transparent 42%),
     radial-gradient(circle at 68% 74%, rgba(0, 0, 0, 0.4), transparent 55%),
-    linear-gradient(150deg, #3a2b1c 0%, #23180f 62%, #17100a 100%);
+    linear-gradient(150deg, #526a70 0%, #2f5572 58%, #24333a 100%);
   box-shadow:
     inset -18px -22px 55px rgba(0, 0, 0, 0.55),
-    inset 12px 14px 40px rgba(251, 246, 238, 0.12),
-    0 40px 80px -34px rgba(35, 24, 15, 0.6);
+    inset 12px 14px 40px rgba(251, 250, 246, 0.12),
+    0 40px 80px -34px rgba(36, 51, 58, 0.48);
 }
 .edge-globe__tex {
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(184, 134, 63, 0.55) 1.1px, transparent 1.3px);
+  background-image: radial-gradient(rgba(211, 157, 70, 0.5) 1.1px, transparent 1.3px);
   background-size: 15px 15px;
   opacity: 0.55;
   mix-blend-mode: screen;
@@ -129,10 +173,10 @@
   position: absolute;
   inset: 8%;
   border-radius: 50%;
-  border: 1px solid rgba(184, 134, 63, 0.16);
+  border: 1px solid rgba(211, 157, 70, 0.16);
   box-shadow:
-    inset 0 0 0 1px rgba(184, 134, 63, 0.05),
-    inset 0 0 60px rgba(184, 134, 63, 0.08);
+    inset 0 0 0 1px rgba(211, 157, 70, 0.05),
+    inset 0 0 60px rgba(211, 157, 70, 0.08);
   pointer-events: none;
 }
 .edge-globe__grat::before,
@@ -141,7 +185,7 @@
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  border: 1px solid rgba(184, 134, 63, 0.12);
+  border: 1px solid rgba(211, 157, 70, 0.12);
 }
 .edge-globe__grat::before { transform: scaleX(0.6); }
 .edge-globe__grat::after { transform: scaleX(0.28); }
@@ -152,7 +196,7 @@
   width: 42%;
   height: 30%;
   border-radius: 50%;
-  background: radial-gradient(circle at 40% 40%, rgba(251, 246, 238, 0.4), transparent 65%);
+  background: radial-gradient(circle at 40% 40%, rgba(251, 250, 246, 0.4), transparent 65%);
   filter: blur(4px);
   pointer-events: none;
 }

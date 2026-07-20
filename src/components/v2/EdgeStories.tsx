@@ -74,7 +74,7 @@ export function EdgeStories() {
                   type="button"
                   onClick={() => setActive(index)}
                   className="tw:flex tw:items-center tw:gap-3 tw:rounded-[1.4rem] tw:p-1.5 tw:text-left tw:transition-colors tw:duration-500"
-                  style={{ background: isActive ? "rgba(181,80,42,0.1)" : "rgba(35,24,15,0.04)" }}
+                  style={{ background: isActive ? "rgba(196,111,82,0.1)" : "rgba(36,51,58,0.04)" }}
                 >
                   <span
                     className="tw:flex tw:h-10 tw:w-10 tw:items-center tw:justify-center tw:rounded-full tw:font-sans tw:text-xs tw:font-semibold"

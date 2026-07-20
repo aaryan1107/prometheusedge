@@ -4,7 +4,7 @@ import { Reveal } from "./Reveal";
 
 export function EdgeProof() {
   return (
-    <section id="proof" className="tw:bg-parchment tw:py-24 tw:md:py-36">
+    <section id="proof" className="tw:bg-parchment tw:pb-24 tw:pt-8 tw:md:pb-28 tw:md:pt-10">
       <div className="tw:mx-auto tw:max-w-6xl tw:px-6">
         <Reveal className="tw:max-w-xl">
           <span className="tw:font-sans tw:text-[11px] tw:font-semibold tw:uppercase tw:tracking-[0.18em] tw:text-clay">

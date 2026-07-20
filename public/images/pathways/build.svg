@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="900" viewBox="0 0 900 900" role="img" aria-labelledby="title">
   <title id="title">Build admissions pathway abstract file</title>
-  <rect width="900" height="900" fill="#f1ead9"/>
-  <rect x="112" y="112" width="676" height="552" rx="34" fill="#ffffff"/>
-  <rect x="160" y="188" width="210" height="22" rx="11" fill="#c9974c"/>
-  <path d="M160 282 H730 M160 382 H620 M160 482 H690 M160 582 H530" stroke="#101e33" stroke-width="18" stroke-linecap="round" opacity=".28"/>
-  <circle cx="694" cy="610" r="92" fill="#c9974c" opacity=".82"/>
-  <path d="M650 612 l32 32 58-74" fill="none" stroke="#101e33" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="112" y="798" fill="#101e33" font-family="Georgia, serif" font-size="70" font-style="italic">Build</text>
-  <text x="116" y="846" fill="#1b4c8c" font-family="Poppins, Arial, sans-serif" font-size="31" font-weight="700" letter-spacing="6">GRADE 10</text>
+  <rect width="900" height="900" fill="#e9ece8"/>
+  <rect x="112" y="112" width="676" height="552" rx="34" fill="#fbfaf6"/>
+  <rect x="160" y="188" width="210" height="22" rx="11" fill="#c46f52"/>
+  <path d="M160 282 H730 M160 382 H620 M160 482 H690 M160 582 H530" stroke="#24333a" stroke-width="18" stroke-linecap="round" opacity=".28"/>
+  <circle cx="694" cy="610" r="92" fill="#c46f52" opacity=".82"/>
+  <path d="M650 612 l32 32 58-74" fill="none" stroke="#24333a" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="112" y="798" fill="#24333a" font-family="Georgia, serif" font-size="70" font-style="italic">Build</text>
+  <text x="116" y="846" fill="#526a70" font-family="Poppins, Arial, sans-serif" font-size="31" font-weight="700" letter-spacing="6">GRADE 10</text>
 </svg>
