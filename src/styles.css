@@ -940,7 +940,7 @@ footer .footer-grid { grid-template-columns: 1.3fr 1fr 1fr 1.2fr; }
 footer a, footer span { display: block; margin-top: 8px; color: var(--cream-soft); font-size: .86rem; }
 footer b { color: var(--gold-soft); font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; }
 
-/* Calendly x PrometheusEDGE hybrid system */
+/* Calendly x The Edge Way hybrid system */
 body {
   background: var(--color-cloud);
 }

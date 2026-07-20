@@ -1,6 +1,6 @@
-# PrometheusEDGE
+# The Edge Way
 
-React + Vite site for PrometheusEDGE.
+React + Vite site for The Edge Way.
 
 ## Local Development
 
