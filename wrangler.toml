@@ -1,0 +1,12 @@
+# Local development only. Production bindings/secrets are configured on the
+# Cloudflare Pages dashboard (Settings → Functions), per the deploy checklist —
+# this file does not need to match production and is not required for the
+# existing GitHub-integrated auto-deploy to keep working.
+name = "the-edge-way-homepage"
+pages_build_output_dir = "dist"
+compatibility_date = "2024-09-23"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "edge-way-calendly"
+database_id = "local-only"

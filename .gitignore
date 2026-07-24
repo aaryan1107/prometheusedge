@@ -3,6 +3,8 @@ dist/
 .DS_Store
 .env
 .env.*
+.dev.vars
+.wrangler/
 *.local
 npm-debug.log*
 pnpm-debug.log*
