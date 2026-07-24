@@ -1,30 +1,8 @@
 import { useState } from "react";
 import { ArrowUpRight, Calendar } from "lucide-react";
 import { Reveal } from "./Reveal";
-
-// TODO: replace with the real Calendly scheduling link once the account is set up.
-const CALENDLY_URL = "https://calendly.com/the-edge-way/consultation";
-
-function openCalendly() {
-  const w = window as unknown as { Calendly?: { initPopupWidget: (o: { url: string }) => void } };
-  if (w.Calendly) {
-    w.Calendly.initPopupWidget({ url: CALENDLY_URL });
-    return;
-  }
-  // Fallback: load Calendly assets on demand, then open.
-  const css = document.createElement("link");
-  css.rel = "stylesheet";
-  css.href = "https://assets.calendly.com/assets/external/widget.css";
-  document.head.appendChild(css);
-  const script = document.createElement("script");
-  script.src = "https://assets.calendly.com/assets/external/widget.js";
-  script.async = true;
-  script.onload = () => {
-    const cal = (window as unknown as { Calendly?: { initPopupWidget: (o: { url: string }) => void } }).Calendly;
-    cal?.initPopupWidget({ url: CALENDLY_URL });
-  };
-  document.body.appendChild(script);
-}
+import { AvailabilityPicker } from "./AvailabilityPicker";
+import { openCalendlyPopup } from "@/lib/calendlyEmbed";
 
 export function EdgeContact() {
   const [sent, setSent] = useState(false);
@@ -47,7 +25,7 @@ export function EdgeContact() {
 
             <button
               type="button"
-              onClick={openCalendly}
+              onClick={() => openCalendlyPopup()}
               className="tw:group tw:mt-8 tw:flex tw:items-center tw:gap-3 tw:rounded-full tw:bg-espresso tw:py-2 tw:pl-6 tw:pr-2 tw:font-sans tw:text-sm tw:font-semibold tw:text-parchment tw:transition-all tw:duration-700 tw:ease-[cubic-bezier(0.32,0.72,0,1)] tw:hover:bg-clay tw:active:scale-[0.98]"
             >
               <Calendar className="tw:h-4 tw:w-4" strokeWidth={1.5} />
@@ -56,6 +34,10 @@ export function EdgeContact() {
                 <ArrowUpRight className="tw:h-4 tw:w-4" strokeWidth={1.5} />
               </span>
             </button>
+
+            {/* Additive: real live slots when the Calendly API connection is set up.
+                Renders nothing if unavailable, so the button above always works. */}
+            <AvailabilityPicker />
 
             <ul className="tw:mt-10 tw:flex tw:flex-col tw:gap-3 tw:font-sans tw:text-[14px] tw:text-espresso-soft/80">
               <li><b className="tw:text-espresso">Email:</b> hello@theedgeway.com</li>

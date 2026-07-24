@@ -1,0 +1,9 @@
+# Copy to .dev.vars (git-ignored) for local `npm run functions:dev` testing.
+# In production these are set as encrypted environment variables on the
+# Cloudflare Pages project — never committed anywhere.
+
+CALENDLY_CLIENT_ID=
+CALENDLY_CLIENT_SECRET=
+CALENDLY_EVENT_TYPE_URI=
+# Only needed if testing against a URL other than the Pages preview/local origin.
+PUBLIC_BASE_URL=

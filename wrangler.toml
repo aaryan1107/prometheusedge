@@ -1,0 +1,13 @@
+# Local development only, for `npm run functions:dev` (wrangler pages dev)
+# and `wrangler d1 execute --local`. Deliberately omits `name` and
+# `pages_build_output_dir` — those two fields are what make Cloudflare treat
+# a repo as configured for its "Workers Builds" pipeline, which would hijack
+# this project's existing dashboard-configured git-integration deploy.
+# Production bindings/secrets stay dashboard-configured (Settings → Functions),
+# per the deploy checklist.
+compatibility_date = "2024-09-23"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "edge-way-calendly"
+database_id = "local-only"
