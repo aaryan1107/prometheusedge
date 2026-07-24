@@ -1,5 +1,4 @@
-// TODO: replace with the real Calendly scheduling link once the account is set up.
-export const CALENDLY_URL = "https://calendly.com/the-edge-way/consultation";
+export const CALENDLY_URL = "https://calendly.com/aaryan-kansal-prometheusschool/prometheusedge";
 
 type CalendlyGlobal = { Calendly?: { initPopupWidget: (o: { url: string }) => void } };
 
