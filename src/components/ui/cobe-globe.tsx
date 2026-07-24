@@ -268,6 +268,20 @@ export function Globe({
     let globe: ReturnType<typeof createGlobe> | null = null;
     let animationId = 0;
     let resizeObserver: ResizeObserver | null = null;
+    let intersectionObserver: IntersectionObserver | null = null;
+    // The globe is a continuous WebGL render loop (idle spin, drag momentum,
+    // travel animation). Without gating, it would burn GPU/CPU forever even
+    // when scrolled far out of view. Only render while actually on screen
+    // and the tab is foregrounded.
+    let isIntersecting = false;
+
+    const shouldRender = () => isIntersecting && !document.hidden;
+
+    const resumeIfNeeded = () => {
+      if (!animationId && globe && shouldRender()) {
+        animationId = requestAnimationFrame(render);
+      }
+    };
 
     const markerPayload = () => {
       const arrival = mode.current === "arrived" ? 1 : routeProgress.current;
@@ -334,7 +348,7 @@ export function Globe({
         arcs: arcPayload(),
       });
       renderedSize.current = nextSize;
-      animationId = requestAnimationFrame(render);
+      animationId = shouldRender() ? requestAnimationFrame(render) : 0;
     };
 
     const init = () => {
@@ -366,7 +380,7 @@ export function Globe({
         arcHeight,
         opacity: 0.9,
       });
-      animationId = requestAnimationFrame(render);
+      animationId = shouldRender() ? requestAnimationFrame(render) : 0;
       window.setTimeout(() => {
         canvas.style.opacity = "1";
       }, 100);
@@ -379,10 +393,28 @@ export function Globe({
       init();
     });
     resizeObserver.observe(canvas);
+
+    intersectionObserver = new IntersectionObserver(
+      ([entry]) => {
+        isIntersecting = entry.isIntersecting;
+        resumeIfNeeded();
+      },
+      { rootMargin: "160px" },
+    );
+    intersectionObserver.observe(canvas);
+
+    const onVisibilityChange = () => {
+      if (document.hidden) return;
+      resumeIfNeeded();
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
     init();
 
     return () => {
       resizeObserver?.disconnect();
+      intersectionObserver?.disconnect();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
       if (animationId) cancelAnimationFrame(animationId);
       globe?.destroy();
     };

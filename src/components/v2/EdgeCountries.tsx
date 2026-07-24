@@ -1,14 +1,22 @@
-import { useEffect, useMemo, useState, type CSSProperties } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState, type CSSProperties } from "react";
 import { ArrowRight, MapPin } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-import {
-  Globe,
-  type GlobeArc,
-  type GlobeMarker,
-  type GlobeTravelState,
-} from "@/components/ui/cobe-globe";
+import type { GlobeArc, GlobeMarker, GlobeTravelState } from "@/components/ui/cobe-globe";
 import { DESTINATIONS, INDIA_ORIGIN, type Destination } from "@/data/destinations";
 import { SectionHead, Reveal } from "./Reveal";
+
+// The globe pulls in the `cobe` WebGL library, which is only needed once this
+// section is actually reached. Splitting it into its own chunk keeps it out
+// of the main bundle's parse/eval cost on first load.
+const Globe = lazy(() => import("@/components/ui/cobe-globe").then((mod) => ({ default: mod.Globe })));
+
+function GlobeFallback() {
+  return (
+    <div className="tw:flex tw:h-full tw:w-full tw:items-center tw:justify-center tw:rounded-full tw:bg-espresso-soft/20">
+      <span className="tw:h-8 tw:w-8 tw:animate-spin tw:rounded-full tw:border-2 tw:border-parchment/20 tw:border-t-gold" />
+    </div>
+  );
+}
 
 const desktopConstellationOffsets = [
   { x: -148, y: -92 },
@@ -241,28 +249,30 @@ export function EdgeCountries() {
           <Reveal delay={0.1} className="tw:w-full tw:lg:sticky tw:lg:top-32">
             <div className="tw:relative tw:mx-auto tw:aspect-square tw:w-full tw:max-w-[620px]" style={{ minWidth: 280 }}>
               <div className="tw:absolute tw:inset-[8%] tw:rounded-full tw:bg-parchment/7 tw:blur-2xl" />
-              <Globe
-                className="tw:relative tw:z-10 tw:w-full"
-                markers={markers}
-                arcs={arcs}
-                initialCamera={INDIA_ORIGIN.camera}
-                targetCamera={destination.camera}
-                journeyKey={`${destination.code}-${journeyVersion}`}
-                onTravelStateChange={setTravelState}
-                onMarkerSelect={(marker) => selectDestination(marker.id.replace("country-", "").toUpperCase())}
-                markerColor={[47 / 255, 85 / 255, 114 / 255]}
-                arcColor={[211 / 255, 157 / 255, 70 / 255]}
-                baseColor={[0.91, 0.93, 0.91]}
-                glowColor={[0.98, 0.98, 0.96]}
-                dark={0.18}
-                mapBrightness={4.8}
-                markerSize={0.052}
-                markerElevation={0.025}
-                arcWidth={1.05}
-                arcHeight={0.38}
-              >
-                {hasArrived ? <UniversityConstellation destination={destination} compact={compactConstellation} /> : null}
-              </Globe>
+              <Suspense fallback={<GlobeFallback />}>
+                <Globe
+                  className="tw:relative tw:z-10 tw:w-full"
+                  markers={markers}
+                  arcs={arcs}
+                  initialCamera={INDIA_ORIGIN.camera}
+                  targetCamera={destination.camera}
+                  journeyKey={`${destination.code}-${journeyVersion}`}
+                  onTravelStateChange={setTravelState}
+                  onMarkerSelect={(marker) => selectDestination(marker.id.replace("country-", "").toUpperCase())}
+                  markerColor={[47 / 255, 85 / 255, 114 / 255]}
+                  arcColor={[211 / 255, 157 / 255, 70 / 255]}
+                  baseColor={[0.91, 0.93, 0.91]}
+                  glowColor={[0.98, 0.98, 0.96]}
+                  dark={0.18}
+                  mapBrightness={4.8}
+                  markerSize={0.052}
+                  markerElevation={0.025}
+                  arcWidth={1.05}
+                  arcHeight={0.38}
+                >
+                  {hasArrived ? <UniversityConstellation destination={destination} compact={compactConstellation} /> : null}
+                </Globe>
+              </Suspense>
 
               <motion.div
                 key={`journey-${destination.code}-${travelState}`}
