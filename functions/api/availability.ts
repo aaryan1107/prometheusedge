@@ -28,13 +28,19 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
   const url = new URL(request.url);
   const now = new Date();
-  const start = url.searchParams.get("start") ?? now.toISOString();
+  // Calendly rejects start_time values that aren't safely in the future by
+  // the time it validates the request (server clock skew, network latency) —
+  // a bare `now` is not enough margin.
+  const START_BUFFER_MS = 5 * 60 * 1000;
+  const start = url.searchParams.get("start") ?? new Date(now.getTime() + START_BUFFER_MS).toISOString();
   const end =
     url.searchParams.get("end") ??
-    new Date(now.getTime() + DEFAULT_WINDOW_DAYS * 24 * 60 * 60 * 1000).toISOString();
+    new Date(now.getTime() + START_BUFFER_MS + DEFAULT_WINDOW_DAYS * 24 * 60 * 60 * 1000).toISOString();
+
+  const eventTypeUri = env.CALENDLY_EVENT_TYPE_URI.trim();
 
   const upstreamUrl = new URL(`https://api.calendly.com/event_type_available_times`);
-  upstreamUrl.searchParams.set("event_type", env.CALENDLY_EVENT_TYPE_URI);
+  upstreamUrl.searchParams.set("event_type", eventTypeUri);
   upstreamUrl.searchParams.set("start_time", start);
   upstreamUrl.searchParams.set("end_time", end);
 
@@ -46,7 +52,10 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   }
 
   if (!resp.ok) {
-    return jsonError(`Calendly rejected the availability request: ${resp.status} ${await resp.text()}`, 502);
+    return jsonError(
+      `Calendly rejected the availability request: ${resp.status} ${await resp.text()} | sent event_type=${JSON.stringify(eventTypeUri)} start_time=${start} end_time=${end}`,
+      502,
+    );
   }
 
   const data: AvailableTimesResponse = await resp.json();
