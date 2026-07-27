@@ -53,13 +53,13 @@ export function EdgeProof() {
             <article className="tw:h-full tw:rounded-[1.75rem] tw:bg-espresso/[0.04] tw:p-1.5 tw:ring-1 tw:ring-ink-line">
               <div className="tw:flex tw:h-full tw:flex-col tw:justify-center tw:gap-4 tw:rounded-[calc(1.75rem-0.375rem)] tw:bg-parchment tw:px-7 tw:py-6 tw:shadow-[inset_0_1px_1px_rgba(255,255,255,0.7)]">
                 <p className="tw:font-display tw:text-xl tw:italic tw:leading-snug tw:text-espresso tw:md:text-2xl">
-                  "Their personalized approach and insight into my strengths helped me stand out."
+                  "The Edge Way helped me navigate the college application process with ease and confidence."
                 </p>
                 <div className="tw:flex tw:items-center tw:gap-3">
-                  <UniversityLogo name="Boston University" mark="BU" size="sm" />
+                  <UniversityLogo name="Northeastern University" mark="NEU" size="sm" />
                   <span className="tw:font-sans tw:text-xs">
-                    <b className="tw:text-espresso">Isha Chauhan</b>
-                    <span className="tw:ml-2 tw:text-espresso-soft/50">Boston University</span>
+                    <b className="tw:text-espresso">Dhruv</b>
+                    <span className="tw:ml-2 tw:text-espresso-soft/50">Northeastern University</span>
                   </span>
                 </div>
               </div>
