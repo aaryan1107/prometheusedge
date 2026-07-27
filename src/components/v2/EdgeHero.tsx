@@ -326,18 +326,18 @@ export function EdgeHero() {
                     alt="Mukesh Sharma, founder of The Edge Way"
                     className="tw:pointer-events-none tw:absolute tw:bottom-0 tw:right-[-3%] tw:z-0 tw:h-[66%] tw:w-[52%] tw:object-contain tw:object-bottom tw:drop-shadow-[0_18px_26px_rgba(0,0,0,0.28)] tw:sm:h-[70%] tw:sm:w-[53%]"
                   />
-                  <div className="tw:relative tw:z-10 tw:max-w-[58%] tw:p-7 tw:sm:max-w-[56%] tw:sm:p-8">
+                  <div className="tw:relative tw:z-10 tw:w-full tw:p-7 tw:sm:p-8">
                     <p className="tw:font-sans tw:text-[10px] tw:font-semibold tw:uppercase tw:tracking-[0.18em] tw:text-gold/80">
                       A word from our founder
                     </p>
-                    <p className="tw:mt-6 tw:font-display tw:text-xl tw:italic tw:leading-snug tw:text-parchment">
+                    <p className="tw:mt-6 tw:max-w-[96%] tw:font-display tw:text-[clamp(1.55rem,3vw,2.15rem)] tw:italic tw:leading-[1.14] tw:text-parchment">
                       "Education isn't just about degrees — it's about building real, meaningful futures."
                     </p>
-                    <div className="tw:mt-6">
+                    <div className="tw:mt-6 tw:max-w-[52%]">
                       <p className="tw:font-sans tw:text-sm tw:font-semibold tw:text-parchment">Mukesh Sharma</p>
                       <p className="tw:font-sans tw:text-xs tw:text-parchment/50">Founder, The Edge Way</p>
                     </div>
-                    <dl className="tw:mt-7 tw:space-y-2 tw:border-t tw:border-parchment/10 tw:pt-5 tw:font-sans tw:text-[10px]">
+                    <dl className="tw:mt-7 tw:max-w-[47%] tw:space-y-2 tw:border-t tw:border-parchment/10 tw:pt-5 tw:font-sans tw:text-[10px]">
                       {[
                         ["Student Window", "Grade 8 onward"],
                         ["Destinations", "US · UK · Europe · Asia"],
