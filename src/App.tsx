@@ -37,6 +37,7 @@ function App() {
           <Route path="/universities" element={<Universities />} />
           <Route path="/universities/:country" element={<UniversityCountry />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/admin/dashboard" element={<AdminBookings />} />
           <Route path="/admin/bookings" element={<AdminBookings />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

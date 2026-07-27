@@ -24,6 +24,17 @@ export interface BookingRecord {
   raw_payload: string;
 }
 
+export interface EnquiryRecord {
+  id: number;
+  name: string;
+  email: string;
+  phone: string | null;
+  grade: string | null;
+  message: string;
+  source: string | null;
+  created_at: number;
+}
+
 export async function getConnection(db: D1Database): Promise<ConnectionRow | null> {
   const row = await db
     .prepare("SELECT * FROM calendly_connection ORDER BY id DESC LIMIT 1")
@@ -156,5 +167,20 @@ export async function listBookings(
     ? db.prepare(query).bind(new Date().toISOString(), limit)
     : db.prepare(query).bind(limit);
   const { results } = await stmt.all();
+  return results;
+}
+
+export async function listEnquiries(db: D1Database, opts: { limit?: number } = {}) {
+  const { limit = 200 } = opts;
+  const { results } = await db
+    .prepare(
+      `SELECT id, name, email, phone, grade, message, source, created_at
+       FROM enquiries
+       ORDER BY created_at DESC
+       LIMIT ?`,
+    )
+    .bind(limit)
+    .all<EnquiryRecord>();
+
   return results;
 }
