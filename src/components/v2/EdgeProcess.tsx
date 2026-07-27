@@ -128,13 +128,14 @@ export function EdgeProcess() {
                     transition={{ type: "spring", stiffness: 145, damping: 23, mass: 0.8 }}
                     style={{ flexBasis: 0 }}
                   >
-                    {/* Source photos are ~380px wide, so object-cover in a tall
-                        panel already upscales heavily — keep the extra zoom
-                        minimal so they don't turn soft. */}
+                    {/* Keep the active panel crisp while collapsed panels can
+                        stay lazy to avoid loading all five images at once. */}
                     <motion.img
                       src={step.image}
+                      srcSet={`${step.image} 2x`}
                       alt={step.imageAlt}
-                      loading="lazy"
+                      loading={isActive ? "eager" : "lazy"}
+                      fetchPriority={isActive ? "high" : "auto"}
                       decoding="async"
                       className="tw:absolute tw:inset-0 tw:h-full tw:w-full tw:object-cover"
                       animate={{ scale: isActive ? 1 : 1.08 }}
