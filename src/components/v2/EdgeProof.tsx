@@ -4,9 +4,8 @@ import { Reveal } from "./Reveal";
 import { UniversityLogo } from "./UniversityLogo";
 import { DESTINATIONS } from "@/data/destinations";
 
-// Derived from the same source the globe and hero strip read, so these can
-// never drift out of sync with the destinations actually shown on the site.
-const DESTINATION_COUNT = DESTINATIONS.length;
+const GLOBAL_DESTINATION_COUNT = 13;
+const VERIFIED_PLACEMENT_COUNT = 100;
 const UNIVERSITY_COUNT = DESTINATIONS.reduce((total, d) => total + d.universities.length, 0);
 
 // One flagship per destination, for the proof strip.
@@ -38,7 +37,7 @@ export function EdgeProof() {
                   Verified placements
                 </span>
                 <span className="tw:font-display tw:text-6xl tw:leading-none tw:text-parchment">
-                  <CountUpStat end={12} suffix="+" label="12 plus verified placements" />
+                  <CountUpStat end={VERIFIED_PLACEMENT_COUNT} suffix="+" label="100 plus verified placements" />
                 </span>
                 <span className="tw:font-sans tw:text-[13px] tw:leading-relaxed tw:text-parchment/60">
                   Students placed at universities across our destination list — each one a single,
@@ -71,7 +70,7 @@ export function EdgeProof() {
             <article className="tw:h-full tw:rounded-[1.75rem] tw:bg-espresso/[0.04] tw:p-1.5 tw:ring-1 tw:ring-ink-line">
               <div className="tw:flex tw:h-full tw:flex-col tw:justify-center tw:gap-1 tw:rounded-[calc(1.75rem-0.375rem)] tw:bg-gold-soft tw:px-6 tw:py-5">
                 <span className="tw:font-display tw:text-4xl tw:leading-none tw:text-espresso">
-                  <CountUpStat end={DESTINATION_COUNT} label={`${DESTINATION_COUNT} destination countries`} />
+                  <CountUpStat end={GLOBAL_DESTINATION_COUNT} suffix="+" label="13 plus destination countries" />
                 </span>
                 <span className="tw:font-sans tw:text-[13px] tw:leading-snug tw:text-espresso-soft/70">
                   destination countries, each with its own admissions grammar.

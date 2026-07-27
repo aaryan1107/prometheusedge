@@ -10,13 +10,13 @@ import { LogoLoop } from "@/components/ui/LogoLoop";
 import { DESTINATIONS } from "@/data/destinations";
 
 const heroStats: Array<{ end: number; suffix?: string; label: string; caption: string }> = [
-  // Derived so this can't contradict the destination strip below it.
   {
-    end: DESTINATIONS.length,
-    label: `${DESTINATIONS.length} global destinations`,
+    end: 13,
+    suffix: "+",
+    label: "13 plus global destinations",
     caption: "Global Destinations",
   },
-  { end: 12, suffix: "+", label: "12 plus verified placements", caption: "Verified Placements" },
+  { end: 100, suffix: "+", label: "100 plus verified placements", caption: "Verified Placements" },
   { end: 9, suffix: "-12", label: "Grades 9 to 12 four-year runway", caption: "Four-Year Runway" },
   { end: 1, suffix: ":1", label: "1 to 1 counsellor model", caption: "Counsellor Model" },
 ];
