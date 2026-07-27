@@ -97,5 +97,8 @@ const LOGOS: Record<string, string> = {
 
 /** Returns the logo URL for a university name, or null when none is on file. */
 export function getUniversityLogo(name: string): string | null {
-  return LOGOS[normaliseUniversityName(name)] ?? null;
+  const source = LOGOS[normaliseUniversityName(name)];
+  if (!source) return null;
+  const filename = source.slice(source.lastIndexOf("/") + 1).replace(/\.[^.]+$/, ".png");
+  return `${BASE}/clean/${filename}`;
 }

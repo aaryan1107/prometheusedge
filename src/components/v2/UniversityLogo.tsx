@@ -9,6 +9,12 @@ const SIZES: Record<Size, { box: string; pad: string; text: string }> = {
   lg: { box: "tw:h-12 tw:w-[116px]", pad: "tw:p-2", text: "tw:text-[10px]" },
 };
 
+const BARE_SIZES: Record<Size, { box: string; image: string }> = {
+  sm: { box: "tw:h-[52px] tw:w-[132px]", image: "tw:max-h-10 tw:max-w-[120px]" },
+  md: { box: "tw:h-[58px] tw:w-[150px]", image: "tw:max-h-11 tw:max-w-[138px]" },
+  lg: { box: "tw:h-[64px] tw:w-[176px]", image: "tw:max-h-12 tw:max-w-[164px]" },
+};
+
 /**
  * Renders a university's logo either as a quiet evidence mark or on a tile.
  *
@@ -41,17 +47,18 @@ export function UniversityLogo({
   const src = getUniversityLogo(name);
   const [failed, setFailed] = useState(false);
   const s = SIZES[size];
+  const bare = BARE_SIZES[size];
 
   if (variant === "bare" && src && !failed) {
     return (
-      <span className={`tw:flex tw:h-[64px] tw:w-[176px] tw:shrink-0 tw:items-center tw:justify-center ${className}`}>
+      <span className={`tw:flex ${bare.box} tw:shrink-0 tw:items-center tw:justify-center ${className}`}>
         <img
           src={src}
           alt={`${name} logo`}
           loading="lazy"
           decoding="async"
           onError={() => setFailed(true)}
-          className="tw:block tw:max-h-12 tw:max-w-[164px] tw:scale-[1.06] tw:object-contain tw:mix-blend-multiply tw:contrast-[1.08]"
+          className={`tw:block ${bare.image} tw:scale-[1.04] tw:object-contain tw:mix-blend-multiply tw:contrast-[1.08]`}
         />
       </span>
     );
@@ -60,7 +67,7 @@ export function UniversityLogo({
   if (!src || failed) {
     if (variant === "bare") {
       return (
-        <span className={`tw:flex tw:h-[64px] tw:w-[176px] tw:shrink-0 tw:items-center tw:justify-center tw:font-sans tw:text-[10px] tw:font-bold tw:tracking-[0.04em] tw:text-heritage ${className}`}>
+        <span className={`tw:flex ${bare.box} tw:shrink-0 tw:items-center tw:justify-center tw:font-sans tw:text-[10px] tw:font-bold tw:tracking-[0.04em] tw:text-heritage ${className}`}>
           {mark ?? name.slice(0, 3).toUpperCase()}
         </span>
       );

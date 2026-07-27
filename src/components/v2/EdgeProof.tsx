@@ -107,7 +107,8 @@ export function EdgeProof() {
                       key={university.name}
                       name={university.name}
                       mark={university.mark}
-                      size="lg"
+                      size="sm"
+                      variant="bare"
                     />
                   ))}
                 </div>
