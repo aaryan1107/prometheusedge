@@ -39,7 +39,7 @@ const LOGOS: Record<string, string> = {
   "university of warwick": `${BASE}/university-of-warwick.webp`,
 
   // Canada
-  "university of toronto": `${BASE}/university-of-toronto.jpg`,
+  "university of toronto": `${BASE}/university-of-toronto-transparent.png`,
   "university of british columbia": `${BASE}/university-of-british-columbia.png`,
   "mcgill university": `${BASE}/mcgill-university.png`,
   "university of waterloo": `${BASE}/university-of-waterloo.avif`,
@@ -55,13 +55,13 @@ const LOGOS: Record<string, string> = {
   "university of sydney": `${BASE}/university-of-sydney.png`,
   "the university of sydney": `${BASE}/university-of-sydney.png`,
   "monash university": `${BASE}/monash-university.svg`,
-  "unsw sydney": `${BASE}/unsw-sydney.webp`,
-  "university of new south wales": `${BASE}/unsw-sydney.webp`,
+  "unsw sydney": `${BASE}/unsw-sydney-transparent.png`,
+  "university of new south wales": `${BASE}/unsw-sydney-transparent.png`,
 
   // New Zealand
   "university of auckland": `${BASE}/university-of-auckland.png`,
   "the university of auckland": `${BASE}/university-of-auckland.png`,
-  "university of otago": `${BASE}/university-of-otago.webp`,
+  "university of otago": `${BASE}/university-of-otago-transparent.png`,
   "victoria university of wellington": `${BASE}/victoria-university-of-wellington.png`,
 
   // UAE
