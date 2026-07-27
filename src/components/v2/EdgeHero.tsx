@@ -320,13 +320,13 @@ export function EdgeHero() {
           <div ref={fileDepth} className="tw:relative tw:mx-auto tw:w-full tw:max-w-sm tw:will-change-transform">
             <motion.aside variants={fileReveal} className="tw:relative tw:w-full">
               <div className="tw:rounded-[2rem] tw:bg-espresso tw:p-2 tw:shadow-[0_40px_80px_-30px_rgba(18,33,43,0.42)] tw:ring-1 tw:ring-black/10">
-                <div className="tw:relative tw:min-h-[520px] tw:overflow-hidden tw:rounded-[calc(2rem-0.5rem)] tw:bg-espresso-soft/40 tw:shadow-[inset_0_1px_1px_rgba(255,255,255,0.08)]">
+                <div className="tw:relative tw:min-h-[460px] tw:overflow-hidden tw:rounded-[calc(2rem-0.5rem)] tw:bg-espresso-soft/40 tw:shadow-[inset_0_1px_1px_rgba(255,255,255,0.08)]">
                   <img
                     src="/images/mukesh-sharma-cutout.png"
                     alt="Mukesh Sharma, founder of The Edge Way"
-                    className="tw:pointer-events-none tw:absolute tw:bottom-0 tw:right-[-3%] tw:z-0 tw:h-[58%] tw:w-[49%] tw:object-contain tw:object-bottom tw:drop-shadow-[0_18px_26px_rgba(0,0,0,0.28)] tw:sm:h-[64%] tw:sm:w-[50%]"
+                    className="tw:pointer-events-none tw:absolute tw:bottom-0 tw:right-[-3%] tw:z-0 tw:h-[66%] tw:w-[52%] tw:object-contain tw:object-bottom tw:drop-shadow-[0_18px_26px_rgba(0,0,0,0.28)] tw:sm:h-[70%] tw:sm:w-[53%]"
                   />
-                  <div className="tw:relative tw:z-10 tw:max-w-[56%] tw:p-7 tw:pb-8 tw:sm:max-w-[54%] tw:sm:p-8">
+                  <div className="tw:relative tw:z-10 tw:max-w-[58%] tw:p-7 tw:sm:max-w-[56%] tw:sm:p-8">
                     <p className="tw:font-sans tw:text-[10px] tw:font-semibold tw:uppercase tw:tracking-[0.18em] tw:text-gold/80">
                       A word from our founder
                     </p>
@@ -337,19 +337,19 @@ export function EdgeHero() {
                       <p className="tw:font-sans tw:text-sm tw:font-semibold tw:text-parchment">Mukesh Sharma</p>
                       <p className="tw:font-sans tw:text-xs tw:text-parchment/50">Founder, The Edge Way</p>
                     </div>
+                    <dl className="tw:mt-7 tw:space-y-2 tw:border-t tw:border-parchment/10 tw:pt-5 tw:font-sans tw:text-[10px]">
+                      {[
+                        ["Student Window", "Grade 8 onward"],
+                        ["Destinations", "US · UK · Europe · Asia"],
+                        ["Method", "1:1 mentorship"],
+                      ].map(([dt, dd]) => (
+                        <div key={dt} className="tw:flex tw:items-start tw:justify-between tw:gap-3">
+                          <dt className="tw:text-parchment/45">{dt}</dt>
+                          <dd className="tw:max-w-[92px] tw:text-right tw:text-parchment/80">{dd}</dd>
+                        </div>
+                      ))}
+                    </dl>
                   </div>
-                  <dl className="tw:absolute tw:inset-x-7 tw:bottom-7 tw:z-10 tw:max-w-[40%] tw:space-y-2 tw:border-t tw:border-parchment/10 tw:pt-5 tw:font-sans tw:text-[10px] tw:sm:inset-x-8 tw:sm:max-w-[42%]">
-                  {[
-                    ["Student Window", "Grade 8 onward"],
-                    ["Destinations", "US · UK · Europe · Asia"],
-                    ["Method", "1:1 mentorship, not mass coaching"],
-                  ].map(([dt, dd]) => (
-                    <div key={dt} className="tw:flex tw:items-center tw:justify-between tw:gap-4">
-                      <dt className="tw:text-parchment/45">{dt}</dt>
-                      <dd className="tw:text-right tw:text-parchment/80">{dd}</dd>
-                    </div>
-                  ))}
-                  </dl>
                 </div>
               </div>
             </motion.aside>
