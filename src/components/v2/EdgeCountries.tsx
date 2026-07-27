@@ -258,6 +258,7 @@ export function EdgeCountries() {
                   journeyKey={`${destination.code}-${journeyVersion}`}
                   onTravelStateChange={setTravelState}
                   onMarkerSelect={(marker) => selectDestination(marker.id.replace("country-", "").toUpperCase())}
+                  hidePassiveOverlays={hasArrived}
                   markerColor={[47 / 255, 85 / 255, 114 / 255]}
                   arcColor={[211 / 255, 157 / 255, 70 / 255]}
                   baseColor={[0.91, 0.93, 0.91]}

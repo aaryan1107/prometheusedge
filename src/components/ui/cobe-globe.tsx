@@ -57,6 +57,7 @@ interface GlobeProps {
   travelDuration?: number;
   onTravelStateChange?: (state: GlobeTravelState) => void;
   onMarkerSelect?: (marker: GlobeMarker) => void;
+  hidePassiveOverlays?: boolean;
   diffuse?: number;
   mapSamples?: number;
 }
@@ -142,6 +143,7 @@ export function Globe({
   travelDuration = 1800,
   onTravelStateChange,
   onMarkerSelect,
+  hidePassiveOverlays = false,
   diffuse = 1.2,
   mapSamples = 18000,
 }: GlobeProps) {
@@ -438,7 +440,7 @@ export function Globe({
         }}
       />
       {markers.map((marker) => (
-        marker.interactive && onMarkerSelect && !marker.destination && !marker.origin ? (
+        marker.interactive && onMarkerSelect && !hidePassiveOverlays && !marker.destination && !marker.origin ? (
           <button
             key={`pin-${marker.id}`}
             type="button"
@@ -469,7 +471,9 @@ export function Globe({
           </button>
         ) : null
       ))}
-      {markers.filter((marker) => marker.destination || marker.origin).map((marker) => (
+      {markers
+        .filter((marker) => marker.destination || (marker.origin && !hidePassiveOverlays))
+        .map((marker) => (
         <button
           key={`label-${marker.id}`}
           type="button"
@@ -504,7 +508,7 @@ export function Globe({
           {marker.sticker ? <span style={{ marginRight: 4 }}>{marker.sticker}</span> : null}
           {marker.label}
         </button>
-      ))}
+        ))}
       {children}
     </div>
   );
