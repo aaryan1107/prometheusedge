@@ -46,6 +46,9 @@
 .logoloop__item {
   flex: 0 0 auto;
   margin-right: var(--logoloop-gap);
+  display: flex;
+  align-items: center;
+  height: var(--logoloop-logoHeight);
   font-size: var(--logoloop-logoHeight);
   line-height: 1;
 }

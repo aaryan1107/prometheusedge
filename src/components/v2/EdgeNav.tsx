@@ -13,7 +13,7 @@ const navItems: NavItem[] = [
   { type: "page", to: "/blog", label: "Blog" },
   { type: "page", to: "/careers", label: "Careers" },
   { type: "page", to: "/universities", label: "Universities" },
-  { type: "section", hash: "contact", label: "Contact" },
+  { type: "page", to: "/contact", label: "Contact" },
 ];
 
 export function EdgeNav() {

@@ -15,6 +15,7 @@ const columns: { title: string; links: FooterLink[] }[] = [
       { label: "Why The Edge Way", type: "section", hash: "why" },
       { label: "Services", type: "section", hash: "services" },
       { label: "Our Process", type: "section", hash: "process" },
+      { label: "Contact", type: "page", to: "/contact" },
     ],
   },
   {

@@ -1,6 +1,7 @@
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { PageShell } from "@/components/v2/PageShell";
+import { UniversityLogo } from "@/components/v2/UniversityLogo";
 import { countryGuides } from "@/data/content";
 import NotFound from "./NotFound";
 
@@ -39,7 +40,7 @@ export default function UniversityCountry() {
 
           <div className="tw:mt-24 tw:flex tw:items-end tw:justify-between tw:gap-8 tw:border-b tw:border-espresso tw:pb-5"><div><span className="tw:font-sans tw:text-[10px] tw:font-semibold tw:uppercase tw:tracking-[0.18em] tw:text-clay">Representative universities</span><h2 className="tw:mt-3 tw:font-display tw:text-4xl tw:text-espresso">Start the research here.</h2></div><span className="tw:hidden tw:font-sans tw:text-xs tw:text-espresso-soft/45 tw:sm:block">Not a ranking or guaranteed shortlist</span></div>
           <div className="tw:divide-y tw:divide-ink-line">
-            {country.universities.map((university, index) => <div key={university.name} className="tw:grid tw:gap-3 tw:py-7 tw:md:grid-cols-[60px_1fr_180px_1fr] tw:md:items-center"><span className="tw:font-display tw:text-xl tw:text-clay/55">{String(index + 1).padStart(2, "0")}</span><h3 className="tw:font-display tw:text-2xl tw:text-espresso">{university.name}</h3><span className="tw:font-sans tw:text-xs tw:text-espresso-soft/45">{university.location}</span><span className="tw:font-sans tw:text-[13px] tw:text-espresso-soft/65">{university.strengths}</span></div>)}
+            {country.universities.map((university, index) => <div key={university.name} className="tw:grid tw:gap-3 tw:py-7 tw:md:grid-cols-[60px_132px_1fr_180px_1fr] tw:md:items-center"><span className="tw:font-display tw:text-xl tw:text-clay/55">{String(index + 1).padStart(2, "0")}</span><UniversityLogo name={university.name} size="lg" /><h3 className="tw:font-display tw:text-2xl tw:text-espresso">{university.name}</h3><span className="tw:font-sans tw:text-xs tw:text-espresso-soft/45">{university.location}</span><span className="tw:font-sans tw:text-[13px] tw:text-espresso-soft/65">{university.strengths}</span></div>)}
           </div>
 
           <Link to="/#contact" className="tw:group tw:mt-16 tw:flex tw:items-end tw:justify-between tw:gap-6 tw:bg-clay tw:p-7 tw:text-parchment tw:md:p-10"><div><span className="tw:font-sans tw:text-[10px] tw:font-semibold tw:uppercase tw:tracking-[0.16em] tw:text-parchment/60">Build your own shortlist</span><h2 className="tw:mt-3 tw:max-w-2xl tw:font-display tw:text-3xl tw:leading-tight tw:md:text-5xl">Turn country research into a student-specific route.</h2></div><ArrowUpRight className="tw:h-8 tw:w-8 tw:shrink-0 tw:transition-transform tw:group-hover:translate-x-1 tw:group-hover:-translate-y-1" strokeWidth={1.25} /></Link>

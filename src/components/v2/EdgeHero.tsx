@@ -4,52 +4,30 @@ import { ArrowUpRight } from "lucide-react";
 import { motion, type Variants } from "motion/react";
 import { CountUpStat } from "./CountUpStat";
 import { BrandMark } from "./BrandMark";
+import { UniversityLogo } from "./UniversityLogo";
 import { gsap } from "./gsapConfig";
 import { LogoLoop } from "@/components/ui/LogoLoop";
 import { DESTINATIONS } from "@/data/destinations";
 
 const heroStats: Array<{ end: number; suffix?: string; label: string; caption: string }> = [
-  { end: 4, label: "4 global destinations", caption: "Global Destinations" },
+  // Derived so this can't contradict the destination strip below it.
+  {
+    end: DESTINATIONS.length,
+    label: `${DESTINATIONS.length} global destinations`,
+    caption: "Global Destinations",
+  },
   { end: 12, suffix: "+", label: "12 plus verified placements", caption: "Verified Placements" },
   { end: 9, suffix: "-12", label: "Grades 9 to 12 four-year runway", caption: "Four-Year Runway" },
   { end: 1, suffix: ":1", label: "1 to 1 counsellor model", caption: "Counsellor Model" },
 ];
 
-const universityColors = [
-  { background: "var(--color-graphite)", color: "var(--color-ivory)" },
-  { background: "var(--color-terracotta)", color: "var(--color-ivory)" },
-  { background: "var(--color-muted-teal)", color: "var(--color-ivory)" },
-  { background: "var(--color-heritage)", color: "var(--color-ivory)" },
-  { background: "var(--color-rose-clay)", color: "var(--color-graphite)" },
-  { background: "var(--color-gold)", color: "var(--color-graphite)" },
-];
-
-const universityLoopItems = DESTINATIONS.flatMap((destination, destinationIndex) =>
-  destination.universities.map((university) => {
-    const palette = universityColors[destinationIndex % universityColors.length];
-    return {
-      title: university.name,
-      ariaLabel: `${university.name}, ${destination.name}`,
-      node: (
-        <span className="tw:flex tw:h-14 tw:max-w-[270px] tw:items-center tw:gap-3 tw:rounded-lg tw:border tw:border-espresso/10 tw:bg-parchment/92 tw:px-3 tw:shadow-[0_10px_28px_-22px_rgba(36,51,58,0.4)]">
-          <span
-            className="tw:flex tw:h-9 tw:min-w-9 tw:items-center tw:justify-center tw:rounded-md tw:px-1.5 tw:font-sans tw:text-[8px] tw:font-bold tw:tracking-[0.04em]"
-            style={palette}
-          >
-            {university.mark}
-          </span>
-          <span className="tw:min-w-0">
-            <span className="tw:block tw:truncate tw:font-sans tw:text-[12px] tw:font-semibold tw:leading-tight tw:text-espresso">
-              {university.name}
-            </span>
-            <span className="tw:mt-1 tw:block tw:font-sans tw:text-[9px] tw:font-semibold tw:uppercase tw:tracking-[0.12em] tw:text-espresso-soft/48">
-              {destination.flag} {destination.name}
-            </span>
-          </span>
-        </span>
-      ),
-    };
-  }),
+// Bare logos, no chrome — the institutions themselves do the trust-building.
+const universityLoopItems = DESTINATIONS.flatMap((destination) =>
+  destination.universities.map((university) => ({
+    title: university.name,
+    ariaLabel: `${university.name}, ${destination.name}`,
+    node: <UniversityLogo name={university.name} mark={university.mark} variant="bare" />,
+  })),
 );
 
 const universityLaneBreak = Math.ceil(universityLoopItems.length / 2);
@@ -123,31 +101,35 @@ function DotField() {
       }
     };
 
+    // Deliberately restrained: a quiet grid that is legible at rest, with a
+    // soft warm response near the cursor. No glow wash — the field should
+    // read as texture, never as an effect competing with the copy.
     const draw = () => {
       raf = 0;
       ctx.clearRect(0, 0, size.w, size.h);
-      ctx.fillStyle = "rgba(82, 106, 112, 0.14)";
-      ctx.beginPath();
 
+      ctx.fillStyle = "rgba(82, 106, 112, 0.19)";
+      ctx.beginPath();
       dots.forEach((dot) => {
-        const dx = pointer.x - dot.x;
-        const dy = pointer.y - dot.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        const lift = pointer.active && distance < 220 ? 1 - distance / 220 : 0;
-        const radius = 0.7 + lift * 1.5 + dot.lane * 0.04;
+        const radius = 0.85;
         ctx.moveTo(dot.x + radius, dot.y);
         ctx.arc(dot.x, dot.y, radius, 0, Math.PI * 2);
       });
-
       ctx.fill();
 
       if (pointer.active) {
-        const glow = ctx.createRadialGradient(pointer.x, pointer.y, 0, pointer.x, pointer.y, 270);
-        glow.addColorStop(0, "rgba(196, 111, 82, 0.16)");
-        glow.addColorStop(0.42, "rgba(211, 157, 70, 0.1)");
-        glow.addColorStop(1, "rgba(82, 106, 112, 0)");
-        ctx.fillStyle = glow;
-        ctx.fillRect(0, 0, size.w, size.h);
+        const RADIUS = 190;
+        ctx.fillStyle = "rgba(196, 111, 82, 0.34)";
+        ctx.beginPath();
+        dots.forEach((dot) => {
+          const distance = Math.hypot(pointer.x - dot.x, pointer.y - dot.y);
+          if (distance > RADIUS) return;
+          const lift = 1 - distance / RADIUS;
+          const radius = 0.85 + lift * lift * 1.05;
+          ctx.moveTo(dot.x + radius, dot.y);
+          ctx.arc(dot.x, dot.y, radius, 0, Math.PI * 2);
+        });
+        ctx.fill();
       }
     };
 
@@ -196,7 +178,7 @@ function DotField() {
     };
   }, []);
 
-  return <canvas className="tw:absolute tw:inset-0 tw:z-0 tw:h-full tw:w-full tw:opacity-70" ref={canvasRef} aria-hidden="true" />;
+  return <canvas className="tw:absolute tw:inset-0 tw:z-0 tw:h-full tw:w-full" ref={canvasRef} aria-hidden="true" />;
 }
 
 export function EdgeHero() {
@@ -377,19 +359,22 @@ export function EdgeHero() {
         </div>
       </div>
 
-      <motion.div variants={softReveal} className="tw:relative tw:z-10 tw:mt-16 tw:overflow-hidden tw:pb-4 tw:md:pb-6">
-        <div className="tw:mx-auto tw:flex tw:max-w-6xl tw:items-end tw:justify-between tw:gap-6 tw:border-b tw:border-espresso/10 tw:px-6 tw:pb-4">
-          <div>
-            <p className="tw:font-sans tw:text-[10px] tw:font-bold tw:uppercase tw:tracking-[0.18em] tw:text-clay">
-              University horizons
+      {/* Opaque parchment backdrop: the logos use mix-blend-multiply to drop
+          the white box on the JPEG lockups, so they need a flat surface to
+          blend against rather than the dot field. */}
+      <motion.div variants={softReveal} className="tw:relative tw:z-10 tw:mt-16 tw:overflow-hidden tw:bg-parchment tw:pb-6 tw:pt-2 tw:md:pb-10">
+        <div className="tw:mx-auto tw:max-w-6xl tw:px-6">
+          <p className="tw:font-sans tw:text-[10px] tw:font-bold tw:uppercase tw:tracking-[0.18em] tw:text-clay">
+            Where our students go
+          </p>
+          <div className="tw:mt-2 tw:flex tw:flex-col tw:gap-2 tw:border-b tw:border-espresso/10 tw:pb-5 tw:sm:flex-row tw:sm:items-end tw:sm:justify-between tw:sm:gap-6">
+            <p className="tw:max-w-xl tw:font-display tw:text-2xl tw:leading-snug tw:text-espresso tw:md:text-3xl">
+              Our guidance has opened doors to the world's best institutions.
             </p>
-            <p className="tw:mt-1 tw:font-display tw:text-xl tw:text-espresso">
-              Explore institutions across every destination.
+            <p className="tw:max-w-xs tw:font-sans tw:text-[10px] tw:leading-relaxed tw:text-espresso-soft/48 tw:sm:text-right">
+              {universityLoopItems.length} representative universities across {DESTINATIONS.length} destinations. Every shortlist remains individual.
             </p>
           </div>
-          <p className="tw:hidden tw:max-w-xs tw:text-right tw:font-sans tw:text-[10px] tw:leading-relaxed tw:text-espresso-soft/48 tw:sm:block">
-            36 representative universities across 10 destinations. Every shortlist remains individual.
-          </p>
         </div>
 
         <div className="tw:mt-5 tw:flex tw:flex-col tw:gap-3">
@@ -397,8 +382,8 @@ export function EdgeHero() {
             logos={universityLanes[0]}
             speed={42}
             direction="left"
-            logoHeight={56}
-            gap={12}
+    logoHeight={64}
+            gap={40}
             hoverSpeed={7}
             scaleOnHover
             fadeOut
@@ -409,8 +394,8 @@ export function EdgeHero() {
             logos={universityLanes[1]}
             speed={34}
             direction="right"
-            logoHeight={56}
-            gap={12}
+    logoHeight={64}
+            gap={40}
             hoverSpeed={7}
             scaleOnHover
             fadeOut

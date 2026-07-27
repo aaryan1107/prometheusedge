@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { ArrowUpRight, Search } from "lucide-react";
 import { Link } from "react-router-dom";
 import { PageShell, ResourceHero } from "@/components/v2/PageShell";
+import { UniversityLogo } from "@/components/v2/UniversityLogo";
 import { countryGuides } from "@/data/content";
 
 export default function Universities() {
@@ -31,7 +32,15 @@ export default function Universities() {
             {countries.map((country) => (
               <Link key={country.slug} to={`/universities/${country.slug}`} className="tw:group tw:grid tw:gap-5 tw:border-b tw:border-ink-line tw:py-8 tw:md:grid-cols-[70px_1fr_220px_130px_auto] tw:md:items-center">
                 <span className="tw:text-4xl" aria-hidden="true">{country.flag}</span>
-                <div><h2 className="tw:font-display tw:text-3xl tw:text-espresso tw:transition-colors tw:group-hover:text-clay">{country.name}</h2><p className="tw:mt-1 tw:font-sans tw:text-[13px] tw:text-espresso-soft/50">{country.universities.length} universities in this guide</p></div>
+                <div>
+                  <h2 className="tw:font-display tw:text-3xl tw:text-espresso tw:transition-colors tw:group-hover:text-clay">{country.name}</h2>
+                  <p className="tw:mt-1 tw:font-sans tw:text-[13px] tw:text-espresso-soft/50">{country.universities.length} universities in this guide</p>
+                  <div className="tw:mt-3 tw:flex tw:flex-wrap tw:items-center tw:gap-1.5">
+                    {country.universities.map((university) => (
+                      <UniversityLogo key={university.name} name={university.name} size="sm" />
+                    ))}
+                  </div>
+                </div>
                 <span className="tw:font-sans tw:text-[12px] tw:leading-relaxed tw:text-espresso-soft/60">{country.system}</span>
                 <span className="tw:font-sans tw:text-[10px] tw:font-semibold tw:uppercase tw:tracking-[0.14em] tw:text-clay">{country.intake}</span>
                 <ArrowUpRight className="tw:hidden tw:h-5 tw:w-5 tw:text-espresso/30 tw:transition-all tw:group-hover:translate-x-1 tw:group-hover:-translate-y-1 tw:group-hover:text-clay tw:md:block" strokeWidth={1.5} />

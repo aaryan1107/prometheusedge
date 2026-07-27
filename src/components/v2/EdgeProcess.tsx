@@ -7,8 +7,8 @@ const steps = [
     n: "01",
     title: "Free Consultation",
     body: "We begin with a real conversation about goals, interests, concerns and the decisions already on the table.",
-    image: "/images/editorial-terrain.svg",
-    imageAlt: "An open route through layered terrain",
+    image: "/images/process/upscaled/free-consultation-2x.webp",
+    imageAlt: "A counsellor and student talking through goals at a laptop",
     imageLabel: "Begin with context",
     tags: ["Goals", "Interests", "Family priorities"],
   },
@@ -16,8 +16,8 @@ const steps = [
     n: "02",
     title: "Career Discovery",
     body: "Psychometric evidence and guided exploration reveal the directions worth experiencing more deeply.",
-    image: "/images/pathways/discover.svg",
-    imageAlt: "Discover pathway graphic with a route and checkpoints",
+    image: "/images/process/upscaled/career-discovery-2x.webp",
+    imageAlt: "A student mapping career ideas across a large wall of sketches",
     imageLabel: "Find the signal",
     tags: ["Psychometrics", "Exploration", "Exposure"],
   },
@@ -25,8 +25,8 @@ const steps = [
     n: "03",
     title: "Personal Roadmap",
     body: "The findings become a customised plan across academics, profile development and university preparation.",
-    image: "/images/pathways/build.svg",
-    imageAlt: "Build pathway graphic showing a structured plan",
+    image: "/images/process/upscaled/personal-roadmap-2x.webp",
+    imageAlt: "Planning a personalised academic roadmap",
     imageLabel: "Shape the plan",
     tags: ["Subjects", "Milestones", "Country logic"],
   },
@@ -34,8 +34,8 @@ const steps = [
     n: "04",
     title: "Profile Building",
     body: "Students turn intention into visible evidence through projects, research, leadership and practical experience.",
-    image: "/images/pathways/shortlist.svg",
-    imageAlt: "Shortlist pathway graphic showing evidence moving forward",
+    image: "/images/process/upscaled/profile-building-2x.webp",
+    imageAlt: "Students building a profile through projects and collaboration",
     imageLabel: "Make it visible",
     tags: ["Internships", "Research", "Leadership", "Projects"],
   },
@@ -43,8 +43,8 @@ const steps = [
     n: "05",
     title: "Applications",
     body: "We execute the final file with care, from shortlisting and essays through interviews, offers and visa guidance.",
-    image: "/images/pathways/apply.svg",
-    imageAlt: "Apply pathway graphic with a completed check mark",
+    image: "/images/process/upscaled/applications-2x.webp",
+    imageAlt: "Completing and submitting university applications",
     imageLabel: "Move to decision",
     tags: ["Shortlisting", "Essays", "Offers", "Visa"],
   },
@@ -128,11 +128,16 @@ export function EdgeProcess() {
                     transition={{ type: "spring", stiffness: 145, damping: 23, mass: 0.8 }}
                     style={{ flexBasis: 0 }}
                   >
+                    {/* Source photos are ~380px wide, so object-cover in a tall
+                        panel already upscales heavily — keep the extra zoom
+                        minimal so they don't turn soft. */}
                     <motion.img
                       src={step.image}
                       alt={step.imageAlt}
+                      loading="lazy"
+                      decoding="async"
                       className="tw:absolute tw:inset-0 tw:h-full tw:w-full tw:object-cover"
-                      animate={{ scale: isActive ? 1.28 : 1.38 }}
+                      animate={{ scale: isActive ? 1 : 1.08 }}
                       transition={{ duration: 0.75, ease: [0.32, 0.72, 0, 1] }}
                     />
                     <div

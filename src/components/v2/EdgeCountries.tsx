@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import type { GlobeArc, GlobeMarker, GlobeTravelState } from "@/components/ui/cobe-globe";
 import { DESTINATIONS, INDIA_ORIGIN, type Destination } from "@/data/destinations";
 import { SectionHead, Reveal } from "./Reveal";
+import { UniversityLogo } from "./UniversityLogo";
 
 // The globe pulls in the `cobe` WebGL library, which is only needed once this
 // section is actually reached. Splitting it into its own chunk keeps it out
@@ -78,11 +79,9 @@ function UniversityConstellation({ destination, compact }: { destination: Destin
                   mass: 0.9,
                   delay: index * 0.09,
                 }}
-                className="tw:flex tw:max-w-[128px] tw:items-center tw:gap-2 tw:rounded-xl tw:bg-parchment/95 tw:p-1.5 tw:pr-2 tw:text-espresso tw:shadow-[0_18px_45px_-24px_rgba(36,51,58,0.48)] tw:ring-1 tw:ring-white/70 tw:sm:max-w-[150px] tw:sm:pr-3"
+                className="tw:flex tw:max-w-[136px] tw:items-center tw:gap-2 tw:rounded-xl tw:bg-parchment/95 tw:p-1.5 tw:pr-2 tw:text-espresso tw:shadow-[0_18px_45px_-24px_rgba(36,51,58,0.48)] tw:ring-1 tw:ring-white/70 tw:sm:max-w-[158px] tw:sm:pr-3"
               >
-                <span className="tw:flex tw:h-8 tw:min-w-8 tw:items-center tw:justify-center tw:rounded-lg tw:bg-heritage tw:px-1.5 tw:font-sans tw:text-[8px] tw:font-bold tw:text-parchment">
-                  {university.mark}
-                </span>
+                <UniversityLogo name={university.name} mark={university.mark} size="sm" />
                 <span className="tw:line-clamp-2 tw:font-sans tw:text-[9px] tw:font-semibold tw:leading-tight">
                   {university.name}
                 </span>
@@ -233,7 +232,7 @@ export function EdgeCountries() {
                 <ul className="tw:mt-6 tw:grid tw:gap-2.5">
                   {destination.universities.map((university) => (
                     <li key={university.name} className="tw:flex tw:items-center tw:gap-3 tw:font-sans tw:text-[13.5px] tw:text-espresso-soft">
-                      <span className="tw:flex tw:h-7 tw:min-w-7 tw:items-center tw:justify-center tw:rounded-lg tw:bg-heritage/10 tw:px-1.5 tw:text-[8px] tw:font-bold tw:text-heritage">{university.mark}</span>
+                      <UniversityLogo name={university.name} mark={university.mark} size="sm" />
                       {university.name}
                     </li>
                   ))}

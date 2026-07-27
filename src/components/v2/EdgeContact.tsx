@@ -3,6 +3,7 @@ import { ArrowUpRight, Calendar } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { AvailabilityPicker } from "./AvailabilityPicker";
 import { openCalendlyPopup } from "@/lib/calendlyEmbed";
+import { CONTACT } from "@/data/contactDetails";
 
 export function EdgeContact() {
   const [sent, setSent] = useState(false);
@@ -40,9 +41,9 @@ export function EdgeContact() {
             <AvailabilityPicker />
 
             <ul className="tw:mt-10 tw:flex tw:flex-col tw:gap-3 tw:font-sans tw:text-[14px] tw:text-espresso-soft/80">
-              <li><b className="tw:text-espresso">Email:</b> info@theedgeway.com</li>
-              <li><b className="tw:text-espresso">Phone:</b> +91 926-612-0527</li>
-              <li><b className="tw:text-espresso">Location:</b> Sector 122, Noida, Uttar Pradesh 201301</li>
+              <li><b className="tw:text-espresso">Email:</b> {CONTACT.email}</li>
+              <li><b className="tw:text-espresso">Phone:</b> {CONTACT.phoneDisplay}</li>
+              <li><b className="tw:text-espresso">Location:</b> {CONTACT.address.full}</li>
             </ul>
           </Reveal>
 

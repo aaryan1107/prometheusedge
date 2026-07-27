@@ -10,6 +10,7 @@ const Careers = lazy(() => import("@/pages/Careers"));
 const CareerDetail = lazy(() => import("@/pages/CareerDetail"));
 const Universities = lazy(() => import("@/pages/Universities"));
 const UniversityCountry = lazy(() => import("@/pages/UniversityCountry"));
+const Contact = lazy(() => import("@/pages/Contact"));
 const AdminBookings = lazy(() => import("@/pages/AdminBookings"));
 const NotFound = lazy(() => import("@/pages/NotFound"));
 
@@ -35,6 +36,7 @@ function App() {
           <Route path="/careers/:slug" element={<CareerDetail />} />
           <Route path="/universities" element={<Universities />} />
           <Route path="/universities/:country" element={<UniversityCountry />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/admin/bookings" element={<AdminBookings />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
