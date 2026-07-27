@@ -320,27 +320,25 @@ export function EdgeHero() {
           <div ref={fileDepth} className="tw:relative tw:mx-auto tw:w-full tw:max-w-sm tw:will-change-transform">
             <motion.aside variants={fileReveal} className="tw:relative tw:w-full">
               <div className="tw:rounded-[2rem] tw:bg-espresso tw:p-2 tw:shadow-[0_40px_80px_-30px_rgba(18,33,43,0.42)] tw:ring-1 tw:ring-black/10">
-                <div className="tw:rounded-[calc(2rem-0.5rem)] tw:bg-espresso-soft/40 tw:p-7 tw:shadow-[inset_0_1px_1px_rgba(255,255,255,0.08)]">
-                <div className="tw:flex tw:items-center tw:justify-between tw:font-sans tw:text-[11px] tw:uppercase tw:tracking-[0.14em] tw:text-parchment/50">
-                  <span className="tw:flex tw:items-center tw:gap-2">
-                    <BrandMark className="tw:h-7 tw:w-7 tw:ring-1 tw:ring-gold/35" />
-                    File 01
-                  </span>
-                  <span>00 / 06</span>
-                </div>
-                <p className="tw:mt-6 tw:font-display tw:text-xl tw:italic tw:leading-snug tw:text-parchment">
-                  "Education isn't just about degrees — it's about building real, meaningful futures."
-                </p>
-                <div className="tw:mt-6 tw:flex tw:items-center tw:gap-3">
-                  <div className="tw:flex tw:h-10 tw:w-10 tw:items-center tw:justify-center tw:rounded-full tw:bg-gold tw:font-sans tw:text-xs tw:font-semibold tw:text-espresso">
-                    MS
+                <div className="tw:relative tw:min-h-[520px] tw:overflow-hidden tw:rounded-[calc(2rem-0.5rem)] tw:bg-espresso-soft/40 tw:shadow-[inset_0_1px_1px_rgba(255,255,255,0.08)]">
+                  <img
+                    src="/images/mukesh-sharma-cutout.png"
+                    alt="Mukesh Sharma, founder of The Edge Way"
+                    className="tw:pointer-events-none tw:absolute tw:bottom-0 tw:right-[-10%] tw:z-0 tw:h-[72%] tw:w-[67%] tw:object-contain tw:object-bottom tw:drop-shadow-[0_18px_26px_rgba(0,0,0,0.28)] tw:sm:h-[78%] tw:sm:w-[66%]"
+                  />
+                  <div className="tw:relative tw:z-10 tw:max-w-[62%] tw:p-7 tw:pb-8 tw:sm:max-w-[58%] tw:sm:p-8">
+                    <p className="tw:font-sans tw:text-[10px] tw:font-semibold tw:uppercase tw:tracking-[0.18em] tw:text-gold/80">
+                      A word from our founder
+                    </p>
+                    <p className="tw:mt-6 tw:font-display tw:text-xl tw:italic tw:leading-snug tw:text-parchment">
+                      "Education isn't just about degrees — it's about building real, meaningful futures."
+                    </p>
+                    <div className="tw:mt-6">
+                      <p className="tw:font-sans tw:text-sm tw:font-semibold tw:text-parchment">Mukesh Sharma</p>
+                      <p className="tw:font-sans tw:text-xs tw:text-parchment/50">Founder, The Edge Way</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="tw:font-sans tw:text-sm tw:font-semibold tw:text-parchment">Mukesh Sharma</p>
-                    <p className="tw:font-sans tw:text-xs tw:text-parchment/50">Founder, The Edge Way</p>
-                  </div>
-                </div>
-                <dl className="tw:mt-6 tw:space-y-2 tw:border-t tw:border-parchment/10 tw:pt-5 tw:font-sans tw:text-xs">
+                  <dl className="tw:absolute tw:inset-x-7 tw:bottom-7 tw:z-10 tw:max-w-[58%] tw:space-y-2 tw:border-t tw:border-parchment/10 tw:pt-5 tw:font-sans tw:text-xs tw:sm:inset-x-8">
                   {[
                     ["Student Window", "Grade 8 onward"],
                     ["Destinations", "US · UK · Europe · Asia"],
@@ -351,7 +349,7 @@ export function EdgeHero() {
                       <dd className="tw:text-right tw:text-parchment/80">{dd}</dd>
                     </div>
                   ))}
-                </dl>
+                  </dl>
                 </div>
               </div>
             </motion.aside>
