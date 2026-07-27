@@ -1,5 +1,4 @@
-// TODO: replace with the real WhatsApp business number (international format, no +).
-const WHATSAPP_NUMBER = "919667745811";
+const WHATSAPP_NUMBER = "919266120527";
 const MESSAGE = "Hi The Edge Way, I'd like to book a free consultation.";
 
 export function WhatsAppButton() {

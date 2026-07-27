@@ -34,9 +34,9 @@ export function EdgeNav() {
         <div className="tw:mx-auto tw:flex tw:max-w-6xl tw:items-center tw:justify-between tw:px-6 tw:py-2">
           <span>Now welcoming students beyond Delhi NCR — nationwide.</span>
           <span className="tw:hidden tw:md:inline">
-            <a className="tw:hover:text-parchment" href="mailto:hello@theedgeway.com">hello@theedgeway.com</a>
+            <a className="tw:hover:text-parchment" href="mailto:info@theedgeway.com">info@theedgeway.com</a>
             <span className="tw:mx-2 tw:opacity-40">·</span>
-            <a className="tw:hover:text-parchment" href="tel:+919667745811">+91 966-774-5811</a>
+            <a className="tw:hover:text-parchment" href="tel:+919266120527">+91 926-612-0527</a>
           </span>
         </div>
       </div>

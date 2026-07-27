@@ -88,7 +88,7 @@ export function EdgeFooter() {
 
         <div className="tw:mt-16 tw:flex tw:flex-col tw:items-start tw:justify-between tw:gap-4 tw:border-t tw:border-parchment/10 tw:pt-6 tw:font-sans tw:text-[12.5px] tw:text-parchment/45 tw:sm:flex-row tw:sm:items-center">
           <span>© {new Date().getFullYear()} The Edge Way. Find your edge.</span>
-          <span>hello@theedgeway.com / +91 966-774-5811</span>
+          <span>info@theedgeway.com / +91 926-612-0527</span>
         </div>
       </div>
     </footer>
