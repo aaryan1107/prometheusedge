@@ -20,17 +20,17 @@ function GlobeFallback() {
 }
 
 const desktopConstellationOffsets = [
-  { x: -148, y: -92 },
-  { x: 146, y: -102 },
-  { x: -145, y: 90 },
-  { x: 144, y: 86 },
+  { x: -190, y: -112 },
+  { x: 190, y: -118 },
+  { x: -190, y: 112 },
+  { x: 190, y: 108 },
 ];
 
 const compactConstellationOffsets = [
-  { x: -104, y: -72 },
-  { x: 104, y: -76 },
-  { x: -100, y: 76 },
-  { x: 100, y: 74 },
+  { x: -116, y: -82 },
+  { x: 116, y: -86 },
+  { x: -112, y: 86 },
+  { x: 112, y: 84 },
 ];
 
 function UniversityConstellation({ destination, compact }: { destination: Destination; compact: boolean }) {
@@ -79,9 +79,9 @@ function UniversityConstellation({ destination, compact }: { destination: Destin
                   mass: 0.9,
                   delay: index * 0.09,
                 }}
-                className="tw:flex tw:max-w-[136px] tw:items-center tw:gap-2 tw:rounded-xl tw:bg-parchment/95 tw:p-1.5 tw:pr-2 tw:text-espresso tw:shadow-[0_18px_45px_-24px_rgba(36,51,58,0.48)] tw:ring-1 tw:ring-white/70 tw:sm:max-w-[158px] tw:sm:pr-3"
+                className="tw:flex tw:w-[176px] tw:items-center tw:gap-2 tw:rounded-xl tw:bg-parchment/95 tw:p-1.5 tw:pr-2 tw:text-espresso tw:shadow-[0_18px_45px_-24px_rgba(36,51,58,0.48)] tw:ring-1 tw:ring-white/70 tw:sm:w-[190px] tw:sm:pr-3"
               >
-                <UniversityLogo name={university.name} mark={university.mark} size="sm" />
+                <UniversityLogo name={university.name} mark={university.mark} size="md" />
                 <span className="tw:line-clamp-2 tw:font-sans tw:text-[9px] tw:font-semibold tw:leading-tight">
                   {university.name}
                 </span>
@@ -263,7 +263,7 @@ export function EdgeCountries() {
                   baseColor={[0.91, 0.93, 0.91]}
                   glowColor={[0.98, 0.98, 0.96]}
                   dark={0.18}
-                  mapBrightness={4.8}
+                  mapBrightness={2.8}
                   markerSize={0.052}
                   markerElevation={0.025}
                   arcWidth={1.05}

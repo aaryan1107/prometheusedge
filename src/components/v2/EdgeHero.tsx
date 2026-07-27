@@ -324,9 +324,9 @@ export function EdgeHero() {
                   <img
                     src="/images/mukesh-sharma-cutout.png"
                     alt="Mukesh Sharma, founder of The Edge Way"
-                    className="tw:pointer-events-none tw:absolute tw:bottom-0 tw:right-[-7%] tw:z-0 tw:h-[62%] tw:w-[55%] tw:object-contain tw:object-bottom tw:drop-shadow-[0_18px_26px_rgba(0,0,0,0.28)] tw:sm:h-[70%] tw:sm:w-[56%]"
+                    className="tw:pointer-events-none tw:absolute tw:bottom-0 tw:right-[-3%] tw:z-0 tw:h-[58%] tw:w-[49%] tw:object-contain tw:object-bottom tw:drop-shadow-[0_18px_26px_rgba(0,0,0,0.28)] tw:sm:h-[64%] tw:sm:w-[50%]"
                   />
-                  <div className="tw:relative tw:z-10 tw:max-w-[62%] tw:p-7 tw:pb-8 tw:sm:max-w-[58%] tw:sm:p-8">
+                  <div className="tw:relative tw:z-10 tw:max-w-[56%] tw:p-7 tw:pb-8 tw:sm:max-w-[54%] tw:sm:p-8">
                     <p className="tw:font-sans tw:text-[10px] tw:font-semibold tw:uppercase tw:tracking-[0.18em] tw:text-gold/80">
                       A word from our founder
                     </p>
@@ -338,7 +338,7 @@ export function EdgeHero() {
                       <p className="tw:font-sans tw:text-xs tw:text-parchment/50">Founder, The Edge Way</p>
                     </div>
                   </div>
-                  <dl className="tw:absolute tw:inset-x-7 tw:bottom-7 tw:z-10 tw:max-w-[47%] tw:space-y-2 tw:border-t tw:border-parchment/10 tw:pt-5 tw:font-sans tw:text-xs tw:sm:inset-x-8 tw:sm:max-w-[48%]">
+                  <dl className="tw:absolute tw:inset-x-7 tw:bottom-7 tw:z-10 tw:max-w-[40%] tw:space-y-2 tw:border-t tw:border-parchment/10 tw:pt-5 tw:font-sans tw:text-[10px] tw:sm:inset-x-8 tw:sm:max-w-[42%]">
                   {[
                     ["Student Window", "Grade 8 onward"],
                     ["Destinations", "US · UK · Europe · Asia"],
