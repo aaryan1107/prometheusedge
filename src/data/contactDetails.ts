@@ -28,9 +28,10 @@ export const CONTACT = {
   },
 } as const;
 
-const encodedAddress = encodeURIComponent(CONTACT.address.full);
+/** Prometheus School pin supplied for the contact map. */
+const PROMETHEUS_SCHOOL_COORDINATES = "28.5127038,77.3601964";
 
 /** Keyless Google Maps embed — no API key or billing account required. */
-export const MAP_EMBED_URL = `https://www.google.com/maps?q=${encodedAddress}&output=embed`;
+export const MAP_EMBED_URL = `https://www.google.com/maps?q=${PROMETHEUS_SCHOOL_COORDINATES}&z=17&output=embed`;
 
-export const MAP_DIRECTIONS_URL = `https://www.google.com/maps/dir/?api=1&destination=${encodedAddress}`;
+export const MAP_DIRECTIONS_URL = "https://maps.app.goo.gl/JgxTNw3R4N9dhr9t6";
