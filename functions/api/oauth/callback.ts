@@ -18,13 +18,18 @@ interface CalendlyUserResponse {
 interface WebhookSubscriptionResource {
   uri: string;
   state: "active" | "disabled";
-  signing_key?: string;
 }
 
 function readCookie(request: Request, name: string): string | null {
   const header = request.headers.get("Cookie") ?? "";
   const match = header.match(new RegExp(`(?:^|; )${name}=([^;]+)`));
   return match ? decodeURIComponent(match[1]) : null;
+}
+
+function createWebhookSigningKey(): string {
+  const bytes = new Uint8Array(32);
+  crypto.getRandomValues(bytes);
+  return btoa(String.fromCharCode(...bytes)).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
 
 /**
@@ -89,13 +94,14 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     const existingResp = await fetch(webhookSubscriptionUri, {
       headers: { Authorization: `Bearer ${tokens.access_token}` },
     });
-    if (existingResp.ok) {
+    if (existingResp.ok && webhookSigningKey) {
       const existing: { resource: WebhookSubscriptionResource } = await existingResp.json();
       reusableWebhookIsValid = existing.resource.state === "active";
     }
   }
 
   if (!reusableWebhookIsValid) {
+    const nextWebhookSigningKey = createWebhookSigningKey();
     const webhookResp = await fetch(`${API_BASE}/webhook_subscriptions`, {
       method: "POST",
       headers: {
@@ -107,6 +113,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         events: ["invitee.created", "invitee.canceled"],
         organization: me.resource.current_organization,
         scope: "organization",
+        signing_key: nextWebhookSigningKey,
       }),
     });
     if (!webhookResp.ok) {
@@ -116,9 +123,8 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       );
     }
     const created: { resource: WebhookSubscriptionResource } = await webhookResp.json();
-    // signing_key is only ever returned at creation time — persist it now or lose it permanently.
     webhookSubscriptionUri = created.resource.uri;
-    webhookSigningKey = created.resource.signing_key ?? webhookSigningKey;
+    webhookSigningKey = nextWebhookSigningKey;
   }
 
   await saveConnection(env.DB, {
